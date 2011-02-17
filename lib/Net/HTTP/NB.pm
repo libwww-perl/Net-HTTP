@@ -3,7 +3,7 @@ package Net::HTTP::NB;
 use strict;
 use vars qw($VERSION @ISA);
 
-$VERSION = "5.810";
+$VERSION = "6.00";
 
 require Net::HTTP;
 @ISA=qw(Net::HTTP);
