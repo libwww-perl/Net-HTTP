@@ -1,5 +1,21 @@
 #!perl -w
 
+BEGIN {
+    eval {
+        require IO::Socket::INET;
+	my $s = IO::Socket::INET->new(
+	    PeerHost => "www.apache.org:80",
+	    Timeout => 5,
+	);
+	die "Can't connect: $@" unless $s;
+    };
+    if ($@) {
+	print "1..0 # SKIP Can't connect to www.apache.org\n";
+	print $@;
+	exit;
+    }
+}
+
 use strict;
 use Test;
 plan tests => 6;
