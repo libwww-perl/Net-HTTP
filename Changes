@@ -1,4 +1,12 @@
 _______________________________________________________________________________
+2011-03-17 Net-HTTP 6.01
+
+Don't run live test by default.  Run 'perl Makefile.PL --live-tests' to enable.
+More relaxed apache test; should pass even if proxies has added headers.
+
+
+
+_______________________________________________________________________________
 2011-02-27 Net-HTTP 6.00
 
 Initial release of Net-HTTP as a separate distribution. There are no code
