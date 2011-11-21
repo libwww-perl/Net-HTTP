@@ -4,7 +4,7 @@ require 5.008008;
 use strict;
 use ExtUtils::MakeMaker;
 use Getopt::Long qw(GetOptions);
-GetOptions(\my %opt, 'live-tests',) or die "Usage: $0 [--live-tests]\n";
+GetOptions(\my %opt, 'live-tests',) or warn "Usage: $0 [--live-tests]\n";
 
 my $flag_file = "t/LIVE_TESTS";
 if ($opt{"live-tests"}) {
