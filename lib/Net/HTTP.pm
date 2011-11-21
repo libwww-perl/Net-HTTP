@@ -3,7 +3,7 @@ package Net::HTTP;
 use strict;
 use vars qw($VERSION @ISA $SOCKET_CLASS);
 
-$VERSION = "6.01";
+$VERSION = "6.02";
 unless ($SOCKET_CLASS) {
     eval { require IO::Socket::INET } || require IO::Socket;
     $SOCKET_CLASS = "IO::Socket::INET";

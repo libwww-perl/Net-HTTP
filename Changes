@@ -1,4 +1,13 @@
 _______________________________________________________________________________
+2011-11-21 Net-HTTP 6.02
+
+Don't disable blocking method [RT#72580]
+Don't stop on unrecognized Makefile.PL arguments [RT#68337]
+Document Net:HTTPS [RT#71599]
+
+
+
+_______________________________________________________________________________
 2011-03-17 Net-HTTP 6.01
 
 Don't run live test by default.  Run 'perl Makefile.PL --live-tests' to enable.
