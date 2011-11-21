@@ -73,3 +73,31 @@ sub http_default_port {
 }
 
 1;
+
+=head1 NAME
+
+Net::HTTPS - Low-level HTTP over SSL/TLS connection (client)
+
+=head1 DESCRIPTION
+
+The C<Net::HTTPS> is a low-level HTTP over SSL/TLS client.  The interface is the same
+as the interface for C<Net::HTTP>, but the constructor method take additional parameters
+as accepted by L<IO::Socket::SSL>.  The C<Net::HTTPS> object isa C<IO::Socket::SSL>
+too, which make it inherit additional methods from that base class.
+
+For historical reasons this module also supports using C<Net::SSL> (from the
+Crypt-SSLeay distribution) as its SSL driver and base class.  This base is
+automatically selected if available and C<IO::Socket::SSL> isn't.  You might
+also force which implementation to use by setting $Net::HTTPS::SSL_SOCKET_CLASS
+before loading this module.  If not set this variable is initialized from the
+C<PERL_NET_HTTPS_SSL_SOCKET_CLASS> environment variable.
+
+=head1 ENVIRONMENT
+
+You might set the C<PERL_NET_HTTPS_SSL_SOCKET_CLASS> environment variable to the name
+of the base SSL implementation (and Net::HTTPS base class) to use.  The default
+is C<IO::Socket::SSL>.  Currently the only other supported value is C<Net::SSL>.
+
+=head1 SEE ALSO
+
+L<Net::HTTP>, L<IO::Socket::SSL>
