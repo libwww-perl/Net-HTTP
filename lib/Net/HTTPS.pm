@@ -72,9 +72,4 @@ sub http_default_port {
     443;
 }
 
-# The underlying SSLeay classes fails to work if the socket is
-# placed in non-blocking mode.  This override of the blocking
-# method makes sure it stays the way it was created.
-sub blocking { }  # noop
-
 1;

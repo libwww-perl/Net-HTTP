@@ -8,3 +8,4 @@ MANIFEST			This list of files
 README
 t/http.t
 t/apache.t
+t/apache-https.t
