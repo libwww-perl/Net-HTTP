@@ -72,6 +72,13 @@ sub http_default_port {
     443;
 }
 
+if ($SSL_SOCKET_CLASS eq "Net::SSL") {
+    # The underlying SSLeay classes fails to work if the socket is
+    # placed in non-blocking mode.  This override of the blocking
+    # method makes sure it stays the way it was created.
+    *blocking = sub { };
+}
+
 1;
 
 =head1 NAME
