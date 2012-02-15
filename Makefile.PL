@@ -1,6 +1,6 @@
 #!perl -w
 
-require 5.008008;
+require 5.006002;
 use strict;
 use ExtUtils::MakeMaker;
 use Getopt::Long qw(GetOptions);
@@ -20,7 +20,7 @@ WriteMakefile(
     ABSTRACT_FROM => 'lib/Net/HTTP.pm',
     AUTHOR => 'Gisle Aas <gisle@activestate.com>',
     LICENSE => "perl",
-    MIN_PERL_VERSION => 5.008008,
+    MIN_PERL_VERSION => 5.006002,
     PREREQ_PM => {
 	'IO::Socket::INET' => 0,
 	'IO::Select' => 0,
