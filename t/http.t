@@ -177,7 +177,7 @@ ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
 $res = $h->request(GET => "/chunked,chunked");
 ok($res->{code}, "200");
 ok($res->{content}, "Hello");
-ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+ok("@{$res->{headers}}", "Transfer-Encoding chunked Transfer-Encoding chunked Content-MD5 xxx");
 
 # test head
 $res = $h->request(HEAD => "/head");
