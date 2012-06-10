@@ -314,7 +314,14 @@ sub _read_header_lines {
     my $max_header_lines = ${*$self}{'http_max_header_lines'};
     while (my $line = my_readline($self, 'Header')) {
 	if ($line =~ /^(\S+?)\s*:\s*(.*)/s) {
-	    push(@headers, $1, $2);
+	    unless (
+	        # chunked,chunked is invalid, but happens. :( Ignore all but the first. [RT#77240]
+	        $1 eq 'Transfer-Encoding' && 
+	        $2 eq 'chunked' && 
+	        (grep {/^chunked$/} @headers)
+	    ) {
+	        push(@headers, $1, $2);
+	    }
 	}
 	elsif (@headers && $line =~ s/^\s+//) {
 	    $headers[-1] .= " " . $line;

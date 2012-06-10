@@ -3,7 +3,7 @@
 use strict;
 use Test;
 
-plan tests => 34;
+plan tests => 37;
 #use Data::Dump ();
 
 my $CRLF = "\015\012";
@@ -19,7 +19,8 @@ my $LF   = "\012";
       a => { "/" => "HTTP/1.0 200 OK${CRLF}Content-Type: text/plain${CRLF}Content-Length: 6${CRLF}${CRLF}Hello\n",
 	     "/bad1" => "HTTP/1.0 200 OK${LF}Server: foo${LF}HTTP/1.0 200 OK${LF}Content-type: text/foo${LF}${LF}abc\n",
 	     "/09" => "Hello${CRLF}World!${CRLF}",
-	     "/chunked" => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}lo${CRLF}0000${CRLF}Content-MD5: xxx${CRLF}${CRLF}",
+	     "/chunked"         => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}lo${CRLF}0000${CRLF}Content-MD5: xxx${CRLF}${CRLF}",
+	     "/chunked,chunked" => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}lo${CRLF}0000${CRLF}Content-MD5: xxx${CRLF}${CRLF}",
 	     "/head" => "HTTP/1.1 200 OK${CRLF}Content-Length: 16${CRLF}Content-Type: text/plain${CRLF}${CRLF}",
 	     "/colon-header" => "HTTP/1.1 200 OK${CRLF}Content-Type: text/plain${CRLF}Content-Length: 6${CRLF}Bad-Header: :foo${CRLF}${CRLF}Hello\n",
 	   },
@@ -137,6 +138,7 @@ ok($res->{code}, "200");
 ok($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Connection: close${CRLF}Host: a${CRLF}${CRLF}");
 
 # try a bad one
+# It's bad because 2nd 'HTTP/1.0 200' is illegal. But passes anyway if laxed => 1.
 $res = $h->request(GET => "/bad1", [], {laxed => 1});
 ok($res->{code}, "200");
 ok($res->{message}, "OK");
@@ -167,6 +169,12 @@ ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
 
 # once more
 $res = $h->request(GET => "/chunked");
+ok($res->{code}, "200");
+ok($res->{content}, "Hello");
+ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+
+# Test bogus headers. Chunked appearing twice is illegal, but happens anyway sometimes. [RT#77240]
+$res = $h->request(GET => "/chunked,chunked");
 ok($res->{code}, "200");
 ok($res->{content}, "Hello");
 ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");

@@ -271,7 +271,7 @@ L<LWP>, L<IO::Socket::INET>, L<Net::HTTP::NB>
 
 =head1 COPYRIGHT
 
-Copyright 2001-2003 Gisle Aas.
+Copyright 2001-2012 Gisle Aas.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
