@@ -489,6 +489,7 @@ sub read_entity_body {
 		die "Bad chunk-size in HTTP response: $line";
 	    }
 	    $chunked = hex($1);
+	    ${*$self}{'http_chunked'} = $chunked;
 	    if ($chunked == 0) {
 		${*$self}{'http_trailers'} = [$self->_read_header_lines];
 		$$buf_ref = "";
