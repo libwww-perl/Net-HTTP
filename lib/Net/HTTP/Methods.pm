@@ -233,6 +233,7 @@ sub my_read {
 	    return length($_[0]);
 	}
 	else {
+	    die "read timeout" unless $self->can_read;
 	    return $self->sysread($_[0], $len);
 	}
     }
@@ -255,15 +256,10 @@ sub my_readline {
 	    # need to read more data to find a line ending
           READ:
             {
+                die "read timeout" unless $self->can_read;
                 my $n = $self->sysread($_, 1024, length);
                 unless (defined $n) {
                     redo READ if $!{EINTR};
-                    if ($!{EAGAIN}) {
-                        # Hmm, we must be reading from a non-blocking socket
-                        # XXX Should really wait until this socket is readable,...
-                        select(undef, undef, undef, 0.1);  # but this will do for now
-                        redo READ;
-                    }
                     # if we have already accumulated some data let's at least
                     # return that as a line
                     die "$what read failed: $!" unless length;
@@ -280,6 +276,37 @@ sub my_readline {
 	my $line = substr($_, 0, $pos+1, "");
 	$line =~ s/(\015?\012)\z// || die "Assert";
 	return wantarray ? ($line, $1) : $line;
+    }
+}
+
+
+sub can_read {
+    my $self = shift;
+    return 1 unless defined(fileno($self));
+
+    # With no timeout, wait forever.  An explict timeout of 0 can be
+    # used to just check if the socket is readable without waiting.
+    my $timeout = @_ ? shift : (${*$self}{io_socket_timeout} || undef);
+
+    my $fbits = '';
+    vec($fbits, fileno($self), 1) = 1;
+  SELECT:
+    {
+        my $before;
+        $before = time if $timeout;
+        my $nfound = select($fbits, undef, undef, $timeout);
+        if ($nfound < 0) {
+            if ($!{EINTR} || $!{EAGAIN}) {
+                # don't really think EAGAIN can happen here
+                if ($timeout) {
+                    $timeout -= time - $before;
+                    $timeout = 0 if $timeout < 0;
+                }
+                redo SELECT;
+            }
+            die "select failed: $!";
+        }
+        return $nfound > 0;
     }
 }
 
