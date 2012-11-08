@@ -8,6 +8,10 @@ $VERSION = "6.00";
 require Net::HTTP;
 @ISA=qw(Net::HTTP);
 
+sub can_read {
+    return 1;
+}
+
 sub sysread {
     my $self = $_[0];
     if (${*$self}{'httpnb_read_count'}++) {
