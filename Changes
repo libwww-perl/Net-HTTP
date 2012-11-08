@@ -1,4 +1,23 @@
 _______________________________________________________________________________
+2012-11-08 Net-HTTP 6.04
+
+Gisle Aas (3):
+      Simpler handling of double chunked [RT#77240]
+      Check for timeouts before reading [RT#72676]
+      Fake can_read
+
+Dagfinn Ilmari Mannsåker (1):
+      Fix chunked decoding on temporary read error [RT#74431]
+
+Eric Wong (1):
+      NB: set http_bytes if read_entity_body hits EAGAIN on first read
+
+Jay Hannah (1):
+      chunked,chunked is invalid, but happens. :( Ignore all but the first. [RT#77240]
+
+
+
+_______________________________________________________________________________
 2012-02-16 Net-HTTP 6.03
 
 Restore blocking override for Net::SSL [RT#72790]
