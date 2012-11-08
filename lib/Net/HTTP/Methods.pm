@@ -565,8 +565,7 @@ sub read_entity_body {
 	my $n = $bytes;
 	$n = $size if $size && $size < $n;
 	$n = my_read($self, $$buf_ref, $n);
-	return undef unless defined $n;
-	${*$self}{'http_bytes'} = $bytes - $n;
+	${*$self}{'http_bytes'} = defined $n ? $bytes - $n : $bytes;
 	return $n;
     }
     else {
