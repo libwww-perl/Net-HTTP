@@ -259,7 +259,7 @@ sub my_readline {
                 die "read timeout" unless $self->can_read;
                 my $n = $self->sysread($_, 1024, length);
                 unless (defined $n) {
-                    redo READ if $!{EINTR};
+                    redo READ if $!{EINTR} || $!{EAGAIN};
                     # if we have already accumulated some data let's at least
                     # return that as a line
                     die "$what read failed: $!" unless length;
