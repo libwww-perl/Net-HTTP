@@ -1,4 +1,15 @@
 _______________________________________________________________________________
+2012-11-10 Net-HTTP 6.05
+
+Gisle Aas (1):
+      Convert to Test::More style and disable test on Windows [RT#81090]
+
+Marinos Yannikos (1):
+      SSL broken for some servers [RT#81073]
+
+
+
+_______________________________________________________________________________
 2012-11-08 Net-HTTP 6.04
 
 Gisle Aas (3):
