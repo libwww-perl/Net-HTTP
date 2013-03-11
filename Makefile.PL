@@ -32,7 +32,7 @@ WriteMakefile(
             'IO::Socket::SSL' => "1.38",
         },
 	resources => {
-            repository => 'http://github.com/gisle/net-http',
+            repository => 'http://github.com/libwww-perl/net-http',
 	    MailingList => 'mailto:libwww@perl.org',
         }
     },
