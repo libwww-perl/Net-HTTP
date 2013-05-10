@@ -36,7 +36,7 @@ sub http_configure {
     my($self, $cnf) = @_;
 
     die "Listen option not allowed" if $cnf->{Listen};
-    my $explict_host = (exists $cnf->{Host});
+    my $explicit_host = (exists $cnf->{Host});
     my $host = delete $cnf->{Host};
     my $peer = $cnf->{PeerAddr} || $cnf->{PeerHost};
     if (!$peer) {
@@ -51,7 +51,7 @@ sub http_configure {
 	$cnf->{PeerPort} = $self->http_default_port;
     }
 
-    if (!$explict_host) {
+    if (!$explicit_host) {
 	$host = $peer;
 	$host =~ s/:.*//;
     }
@@ -285,7 +285,7 @@ sub can_read {
     return 1 unless defined(fileno($self));
     return 1 if $self->isa('IO::Socket::SSL') && $self->pending;
 
-    # With no timeout, wait forever.  An explict timeout of 0 can be
+    # With no timeout, wait forever.  An explicit timeout of 0 can be
     # used to just check if the socket is readable without waiting.
     my $timeout = @_ ? shift : (${*$self}{io_socket_timeout} || undef);
 
