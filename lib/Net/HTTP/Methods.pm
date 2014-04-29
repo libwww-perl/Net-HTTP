@@ -295,6 +295,7 @@ sub can_read {
     my $self = shift;
     return 1 unless defined(fileno($self));
     return 1 if $self->isa('IO::Socket::SSL') && $self->pending;
+    return 1 if $self->isa('Net::SSL') && $self->pending;
 
     # With no timeout, wait forever.  An explicit timeout of 0 can be
     # used to just check if the socket is readable without waiting.
