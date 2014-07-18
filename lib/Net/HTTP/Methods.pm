@@ -44,9 +44,18 @@ sub http_configure {
 	$cnf->{PeerAddr} = $peer = $host;
     }
 
-    if ($peer =~ s,:(\d+)$,,) {
-	$cnf->{PeerPort} = int($1);  # always override
+    # We need to differentiate v6 from v4 when overriding the port number
+    if ($peer =~ /]:/) {
+        if ($peer =~ s,]:(\d+)$,,) {
+            $cnf->{PeerPort} = int($1);
+        }
     }
+    else {
+        if ($peer =~ s,:(\d+)$,,) {
+             $cnf->{PeerPort} = int($1);
+        }
+    }
+
     if (!$cnf->{PeerPort}) {
 	$cnf->{PeerPort} = $self->http_default_port;
     }
