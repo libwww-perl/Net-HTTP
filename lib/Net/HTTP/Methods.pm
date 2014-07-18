@@ -44,7 +44,8 @@ sub http_configure {
 	$cnf->{PeerAddr} = $peer = $host;
     }
 
-    if ($peer =~ s,:(\d+)$,,) {
+    # if ipv6 don't override 
+    if ($peer !~ m/:(.*):/ && $peer =~ s,:(\d+)$,,) {
 	$cnf->{PeerPort} = int($1);  # always override
     }
     if (!$cnf->{PeerPort}) {
