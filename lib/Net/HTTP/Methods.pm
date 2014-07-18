@@ -46,7 +46,7 @@ sub http_configure {
 
     # $cnf->{Family} is not necessarily set here, or we could check AF_INET6
     # square bracket followed by colon is almost certainly a v6 literal with a port number
-    if ($peer =~ /]:/ && $peer =~ s,]:(\d+)$,,) {
+    if ($peer =~ s,]:(\d+)$,,) {
         $cnf->{PeerPort} = int($1);
     }
     # assume multiple colons in a string is a bare v6 literal, and don't touch it
