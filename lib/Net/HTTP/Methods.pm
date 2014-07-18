@@ -44,16 +44,15 @@ sub http_configure {
 	$cnf->{PeerAddr} = $peer = $host;
     }
 
-    # We need to differentiate v6 from v4 when overriding the port number
-    if ($peer =~ /]:/) {
-        if ($peer =~ s,]:(\d+)$,,) {
-            $cnf->{PeerPort} = int($1);
-        }
+    # $cnf->{Family} is not necessarily set here, or we could check AF_INET6
+    # square bracket followed by colon is almost certainly a v6 literal with a port number
+    if ($peer =~ /]:/ && $peer =~ s,]:(\d+)$,,) {
+        $cnf->{PeerPort} = int($1);
     }
-    else {
-        if ($peer =~ s,:(\d+)$,,) {
-             $cnf->{PeerPort} = int($1);
-        }
+    # assume multiple colons in a string is a bare v6 literal, and don't touch it
+    # otherwise, assume domain:port or v4:port, and parse out port number
+    elsif ($peer !~ m/:(.*):/ && $peer =~ s,:(\d+)$,,) {
+        $cnf->{PeerPort} = int($1);
     }
 
     if (!$cnf->{PeerPort}) {
