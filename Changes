@@ -1,3 +1,8 @@
+
+Jason Fesler:
+      Opportunistically use IO::Socket::IP or IO::Socket::INET6.
+      Properly parse IPv6 literal addreses with optional port numbers. [RT#75618]
+
 _______________________________________________________________________________
 2013-03-10 Net-HTTP 6.06
 
