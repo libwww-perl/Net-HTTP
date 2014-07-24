@@ -26,6 +26,7 @@ WriteMakefile(
 	'IO::Select' => 0,
         'Compress::Raw::Zlib' => 0,
         'IO::Compress::Gzip' => 0,
+        'URI' => 0,
     },
     META_MERGE => {
         recommends => {
