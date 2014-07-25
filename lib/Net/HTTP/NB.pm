@@ -42,7 +42,7 @@ sub read_entity_body {
     ${*$self}{'httpnb_read_count'} = 0;
     ${*$self}{'httpnb_save'} = ${*$self}{'http_buf'};
     # XXX I'm not so sure this does the correct thing in case of
-    # transfer-encoding tranforms
+    # transfer-encoding transforms
     my $n = eval { $self->SUPER::read_entity_body(@_); };
     if ($@) {
 	$_[0] = "";
