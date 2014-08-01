@@ -105,7 +105,7 @@ my $LF   = "\012";
 		    message => $message,
 		    headers => \@h,
 		    content => $buf,
-            body_complete => $body_complete,
+		    body_complete => $body_complete,
 		  );
 
 	if ($@) {
