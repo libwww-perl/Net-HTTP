@@ -543,6 +543,7 @@ sub read_entity_body {
 		delete ${*$self}{'http_chunked'};
 		${*$self}{'http_bytes'} = 0;
 		${*$self}{'body_complete'} = 1;
+
 		return $n;
 	    }
 	}
@@ -568,7 +569,7 @@ sub read_entity_body {
     elsif (defined $bytes) {
 	unless ($bytes) {
 	    $$buf_ref = "";
-        ${*$self}{'body_complete'} = 1;
+	    ${*$self}{'body_complete'} = 1;
 	    return 0;
 	}
 	my $n = $bytes;
@@ -580,9 +581,9 @@ sub read_entity_body {
     else {
 	# read until eof
 	$size ||= 8*1024;
-    my $n = my_read($self, $$buf_ref, $size);
-    ${*$self}{'body_complete'} = 1 unless $n;
-    return $n;
+	my $n = my_read($self, $$buf_ref, $size);
+	${*$self}{'body_complete'} = 1 unless $n;
+	return $n;
     }
 }
 

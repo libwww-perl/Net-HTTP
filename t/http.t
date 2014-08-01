@@ -95,7 +95,7 @@ my $LF   = "\012";
 		$buf .= $tmp;
 	    }
 
-        $body_complete = $self->body_complete;
+	    $body_complete = $self->body_complete;
 
 	    push(@h, $self->get_trailers);
 
