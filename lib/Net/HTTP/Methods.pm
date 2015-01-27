@@ -270,7 +270,7 @@ sub my_readline {
                 die "read timeout" unless $self->can_read;
                 my $n = $self->sysread($_, 1024, length);
                 unless (defined $n) {
-                    redo READ if $!{EINTR} || $!{EWOULDBLOCK};
+                    redo READ if $!{EINTR} || $!{EWOULDBLOCK} || $!{EAGAIN};
                     # if we have already accumulated some data let's at least
                     # return that as a line
                     die "$what read failed: $!" unless length;
@@ -309,8 +309,8 @@ sub can_read {
         $before = time if $timeout;
         my $nfound = select($fbits, undef, undef, $timeout);
         if ($nfound < 0) {
-            if ($!{EINTR} || $!{EWOULDBLOCK}) {
-                # don't really think EWOULDBLOCK can happen here
+            if ($!{EINTR} || $!{EWOULDBLOCK} || $!{EAGAIN}) {
+                # don't really think EWOULDBLOCK/EAGAIN can happen here
                 if ($timeout) {
                     $timeout -= time - $before;
                     $timeout = 0 if $timeout < 0;

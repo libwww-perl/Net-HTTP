@@ -239,9 +239,9 @@ could be returned this time, otherwise the number of bytes assigned
 to $buf.  The $buf is set to "" when the return value is -1.
 
 You normally want to retry this call if this function returns either
--1 or C<undef> with C<$!> as EINTR or EWOULDBLOCK (see L<Errno>).  EINTR
-can happen if the application catches signals and EWOULDBLOCK can happen if
-you made the socket non-blocking.
+-1 or C<undef> with C<$!> as EINTR or EWOULDBLOCK/EAGAIN (see L<Errno>).  
+EINTR can happen if the application catches signals and EWOULDBLOCK/EAGAIN
+can happen if you made the socket non-blocking.
 
 This method will raise exceptions (die) if the server does not speak
 proper HTTP.  This can only happen when reading chunked data.
