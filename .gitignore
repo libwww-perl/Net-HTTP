@@ -8,3 +8,4 @@ t/live/ENABLED
 *.tar.gz
 xx*
 /_eumm/
+/MYMETA.*
