@@ -19,23 +19,38 @@ WriteMakefile(
     VERSION_FROM => 'lib/Net/HTTP.pm',
     ABSTRACT_FROM => 'lib/Net/HTTP.pm',
     AUTHOR => 'Gisle Aas <gisle@activestate.com>',
-    LICENSE => "perl",
+    LICENSE => 'perl_5',
     MIN_PERL_VERSION => 5.006002,
     PREREQ_PM => {
-	'IO::Socket::INET' => 0,
-	'IO::Select' => 0,
+        'IO::Socket::INET' => 0,
+        'IO::Select' => 0,
         'Compress::Raw::Zlib' => 0,
         'IO::Uncompress::Gunzip' => 0,
         'URI' => 0,
     },
     META_MERGE => {
-        recommends => {
-            'IO::Socket::SSL' => "1.38",
+        'meta-spec' => { version => 2 },
+        dynamic_config => 0,
+        prereqs => {
+            runtime => {
+                recommends => {
+                    'IO::Socket::SSL' => "1.38",
+                },
+            },
         },
-	resources => {
-            repository => 'http://github.com/libwww-perl/net-http',
-	    MailingList => 'mailto:libwww@perl.org',
-        }
+        resources => {
+            repository => {
+                url => 'https://github.com/libwww-perl/net-http.git',
+                web => 'https://github.com/libwww-perl/net-http',
+                type => 'git',
+            },
+            bugtracker => {
+                 mailto => 'bug-Net-HTTP@rt.cpan.org',
+                 web => 'https://rt.cpan.org/Public/Dist/Display.html?Name=Net-HTTP',
+            },
+            x_MailingList => 'mailto:libwww@perl.org',
+            x_IRC => 'irc://irc.perl.org/#lwp',
+        },
     },
 );
 
