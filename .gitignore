@@ -7,3 +7,4 @@ t/CAN_TALK_TO_OURSELF
 t/live/ENABLED
 *.tar.gz
 xx*
+/_eumm/
