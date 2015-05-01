@@ -1,4 +1,8 @@
+Release history for Net-HTTP
 
+
+_______________________________________________________________________________
+2015-05-01 Net-HTTP 6.08_001
 
 Mark Overmeer (1):
       resolve issues with SSL by reading bytes still waiting to be read after
