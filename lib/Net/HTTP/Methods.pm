@@ -265,20 +265,34 @@ sub my_readline {
 		if $max_line_length && length($_) > $max_line_length;
 
 	    # need to read more data to find a line ending
+            my $new_bytes = 0;
+
           READ:
-            {
-                die "read timeout" unless $self->can_read;
-                my $n = $self->sysread($_, 1024, length);
-                unless (defined $n) {
-                    redo READ if $!{EINTR} || $!{EAGAIN};
-                    # if we have already accumulated some data let's at least
-                    # return that as a line
-                    die "$what read failed: $!" unless length;
+            {   # wait until bytes start arriving
+                $self->can_read
+                     or die "read timeout";
+
+                # consume all incoming bytes
+                while(1) {
+                    my $bytes_read = $self->sysread($_, 1024, length);
+                    if(defined $bytes_read) {
+                        $new_bytes += $bytes_read;
+                        last if $bytes_read < 1024;
+                    }
+                    elsif($!{EINTR} || $!{EAGAIN} || $!{EWOULDBLOCK}) {
+                        redo READ;
+                    }
+                    else {
+                        # if we have already accumulated some data let's at
+                        # least return that as a line
+                        length or die "$what read failed: $!";
+                        last;
+                    }
                 }
-                unless ($n) {
-                    return undef unless length;
-                    return substr($_, 0, length, "");
-                }
+
+                # no line-ending, no new bytes
+                return length($_) ? substr($_, 0, length($_), "") : undef
+                    if $new_bytes==0;
             }
 	}
 	die "$what line too long ($pos; limit is $max_line_length)"
