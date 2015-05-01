@@ -3,7 +3,9 @@ package Net::HTTP;
 use strict;
 use vars qw($VERSION @ISA $SOCKET_CLASS);
 
-$VERSION = "6.07";
+$VERSION = "6.08_001";
+$VERSION = eval $VERSION;
+
 unless ($SOCKET_CLASS) {
     # Try several, in order of capability and preference
     if (eval { require IO::Socket::IP }) {
