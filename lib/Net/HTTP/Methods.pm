@@ -6,7 +6,7 @@ use strict;
 use vars qw($VERSION);
 use URI;
 
-$VERSION = "6.08_001";
+$VERSION = "6.08_002";
 $VERSION = eval $VERSION;
 
 my $CRLF = "\015\012";   # "\r\n" is not portable
