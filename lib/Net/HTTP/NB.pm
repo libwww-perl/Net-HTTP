@@ -4,7 +4,7 @@ use strict;
 use vars qw($VERSION @ISA);
 
 $VERSION = "6.08_001";
-eval $VERSION = $VERSION;
+$VERSION = eval $VERSION;
 
 require Net::HTTP;
 @ISA=qw(Net::HTTP);

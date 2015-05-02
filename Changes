@@ -1,6 +1,11 @@
 Release history for Net-HTTP
 
 
+Karen Etheridge (1):
+      fix foolish $VERSION error in 6.08_001
+
+
+
 _______________________________________________________________________________
 2015-05-01 Net-HTTP 6.08_001
 
