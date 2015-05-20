@@ -10,5 +10,6 @@ xx*
 /_eumm/
 /MYMETA.*
 /MANIFEST.bak
+/MANIFEST.SKIP.bak
 /Net-HTTP-*/
 /Net-HTTP-*.tar.gz
