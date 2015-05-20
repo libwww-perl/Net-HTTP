@@ -3,7 +3,7 @@ package Net::HTTP;
 use strict;
 use vars qw($VERSION @ISA $SOCKET_CLASS);
 
-$VERSION = "6.08_002";
+$VERSION = "6.09";
 $VERSION = eval $VERSION;
 
 unless ($SOCKET_CLASS) {

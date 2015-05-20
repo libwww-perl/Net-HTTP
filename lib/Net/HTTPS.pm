@@ -3,7 +3,7 @@ package Net::HTTPS;
 use strict;
 use vars qw($VERSION $SSL_SOCKET_CLASS @ISA);
 
-$VERSION = "6.08_002";
+$VERSION = "6.09";
 $VERSION = eval $VERSION;
 
 # Figure out which SSL implementation to use
