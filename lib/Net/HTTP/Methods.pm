@@ -104,6 +104,11 @@ sub http_default_port {
     80;
 }
 
+sub body_complete {
+    my $self = shift;
+    ${*$self}{'body_complete'} ? 1 : 0;
+}
+
 # set up property accessors
 for my $method (qw(host keep_alive send_te max_line_length max_header_lines peer_http_version)) {
     my $prop_name = "http_" . $method;
@@ -455,6 +460,8 @@ sub read_entity_body {
     my $chunked;
     my $bytes;
 
+    ${*$self}{'body_complete'} = 0;
+
     if (${*$self}{'http_first_body'}) {
 	${*$self}{'http_first_body'} = 0;
 	delete ${*$self}{'http_chunked'};
@@ -561,6 +568,7 @@ sub read_entity_body {
 		# to return EOF
 		delete ${*$self}{'http_chunked'};
 		${*$self}{'http_bytes'} = 0;
+		${*$self}{'body_complete'} = 1;
 
 		return $n;
 	    }
@@ -587,6 +595,7 @@ sub read_entity_body {
     elsif (defined $bytes) {
 	unless ($bytes) {
 	    $$buf_ref = "";
+	    ${*$self}{'body_complete'} = 1;
 	    return 0;
 	}
 	my $n = $bytes;
@@ -598,7 +607,9 @@ sub read_entity_body {
     else {
 	# read until eof
 	$size ||= 8*1024;
-	return my_read($self, $$buf_ref, $size);
+	my $n = my_read($self, $$buf_ref, $size);
+	${*$self}{'body_complete'} = 1 unless $n;
+	return $n;
     }
 }
 

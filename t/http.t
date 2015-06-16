@@ -3,7 +3,7 @@
 use strict;
 use Test;
 
-plan tests => 37;
+plan tests => 55;
 #use Data::Dump ();
 
 my $CRLF = "\015\012";
@@ -20,6 +20,7 @@ my $LF   = "\012";
 	     "/bad1" => "HTTP/1.0 200 OK${LF}Server: foo${LF}HTTP/1.0 200 OK${LF}Content-type: text/foo${LF}${LF}abc\n",
 	     "/09" => "Hello${CRLF}World!${CRLF}",
 	     "/chunked"         => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}lo${CRLF}0000${CRLF}Content-MD5: xxx${CRLF}${CRLF}",
+	     "/imcomplete_chunked" => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}l",
 	     "/chunked,chunked" => "HTTP/1.1 200 OK${CRLF}Transfer-Encoding: chunked${CRLF}Transfer-Encoding: chunked${CRLF}${CRLF}0002; foo=3; bar${CRLF}He${CRLF}1${CRLF}l${CRLF}2${CRLF}lo${CRLF}0000${CRLF}Content-MD5: xxx${CRLF}${CRLF}",
 	     "/head" => "HTTP/1.1 200 OK${CRLF}Content-Length: 16${CRLF}Content-Type: text/plain${CRLF}${CRLF}",
 	     "/colon-header" => "HTTP/1.1 200 OK${CRLF}Content-Type: text/plain${CRLF}Content-Length: 6${CRLF}Bad-Header: :foo${CRLF}${CRLF}Hello\n",
@@ -81,7 +82,7 @@ my $LF   = "\012";
 	$headers ||= [];
 	$opt ||= {};
 
-	my($code, $message, @h);
+	my($code, $message, @h, $body_complete);
 	my $buf = "";
 	eval {
 	    $self->write_request($method, $uri, @$headers) || die "Can't write request";
@@ -94,6 +95,8 @@ my $LF   = "\012";
 		$buf .= $tmp;
 	    }
 
+	    $body_complete = $self->body_complete;
+
 	    push(@h, $self->get_trailers);
 
 	};
@@ -102,6 +105,7 @@ my $LF   = "\012";
 		    message => $message,
 		    headers => \@h,
 		    content => $buf,
+		    body_complete => $body_complete,
 		  );
 
 	if ($@) {
@@ -123,19 +127,23 @@ $res = $h->request(GET => "/");
 
 ok($res->{code}, 200);
 ok($res->{content}, "Hello\n");
+ok($res->{body_complete}, 1);
 
 $res = $h->request(GET => "/404");
 ok($res->{code}, 404);
+ok($res->{body_complete}, 1);
 
 $res = $h->request(TRACE => "/foo");
 ok($res->{code}, 200);
 ok($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Keep-Alive: 300${CRLF}Connection: Keep-Alive${CRLF}Host: a${CRLF}${CRLF}");
+ok($res->{body_complete}, 1);
 
 # try to turn off keep alive
 $h->keep_alive(0);
 $res = $h->request(TRACE => "/foo");
 ok($res->{code}, "200");
 ok($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Connection: close${CRLF}Host: a${CRLF}${CRLF}");
+ok($res->{body_complete}, 1);
 
 # try a bad one
 # It's bad because 2nd 'HTTP/1.0 200' is illegal. But passes anyway if laxed => 1.
@@ -144,10 +152,12 @@ ok($res->{code}, "200");
 ok($res->{message}, "OK");
 ok("@{$res->{headers}}", "Server foo Content-type text/foo");
 ok($res->{content}, "abc\n");
+ok($res->{body_complete}, 1);
 
 $res = $h->request(GET => "/bad1");
 ok($res->{error} =~ /Bad header/);
 ok(!$res->{code});
+ok(!$res->{body_complete});
 $h = undef;  # it is in a bad state now
 
 $h = HTTP->new("a") || die;  # reconnect
@@ -155,10 +165,12 @@ $res = $h->request(GET => "/09", [], {laxed => 1});
 ok($res->{code}, "200");
 ok($res->{message}, "Assumed OK");
 ok($res->{content}, "Hello${CRLF}World!${CRLF}");
+ok($res->{body_complete}, 1);
 ok($h->peer_http_version, "0.9");
 
 $res = $h->request(GET => "/09");
 ok($res->{error} =~ /^Bad response status line: 'Hello'/);
+ok(!$res->{body_complete});
 $h = undef;  # it's in a bad state again
 
 $h = HTTP->new(Host => "a", KeepAlive => 1, ReadChunkSize => 1) || die;  # reconnect
@@ -166,17 +178,26 @@ $res = $h->request(GET => "/chunked");
 ok($res->{code}, 200);
 ok($res->{content}, "Hello");
 ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+ok($res->{body_complete}, 1);
 
 # once more
 $res = $h->request(GET => "/chunked");
 ok($res->{code}, "200");
 ok($res->{content}, "Hello");
 ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+ok($res->{body_complete}, 1);
+
+# check imcomplete body_complete
+$res = $h->request(GET => '/imcomplete_chunked');
+ok($res->{code}, "200");
+ok("@{$res->{headers}}", "Transfer-Encoding chunked");
+ok($res->{body_complete}, 0);
 
 # Test bogus headers. Chunked appearing twice is illegal, but happens anyway sometimes. [RT#77240]
 $res = $h->request(GET => "/chunked,chunked");
 ok($res->{code}, "200");
 ok($res->{content}, "Hello");
+ok($res->{body_complete}, 1);
 ok("@{$res->{headers}}", "Transfer-Encoding chunked Transfer-Encoding chunked Content-MD5 xxx");
 
 # test head
@@ -184,10 +205,13 @@ $res = $h->request(HEAD => "/head");
 ok($res->{code}, "200");
 ok($res->{content}, "");
 ok("@{$res->{headers}}", "Content-Length 16 Content-Type text/plain");
+# head method request also get a '1'
+ok($res->{body_complete}, 1);
 
 $res = $h->request(GET => "/");
 ok($res->{code}, "200");
 ok($res->{content}, "Hello\n");
+ok($res->{body_complete}, 1);
 
 $h = HTTP->new(Host => undef, PeerAddr => "a", );
 $h->http_version("1.0");
@@ -195,10 +219,12 @@ ok(!defined $h->host);
 $res = $h->request(TRACE => "/");
 ok($res->{code}, "200");
 ok($res->{content}, "TRACE / HTTP/1.0\r\n\r\n");
+ok($res->{body_complete}, 1);
 
 # check that headers with colons at the start of values don't break
 $res = $h->request(GET => '/colon-header');
 ok("@{$res->{headers}}", "Content-Type text/plain Content-Length 6 Bad-Header :foo");
+ok($res->{body_complete}, 1);
 
 require Net::HTTP;
 eval {
