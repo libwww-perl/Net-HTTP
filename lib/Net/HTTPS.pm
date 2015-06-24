@@ -89,9 +89,9 @@ Net::HTTPS - Low-level HTTP over SSL/TLS connection (client)
 =head1 DESCRIPTION
 
 The C<Net::HTTPS> is a low-level HTTP over SSL/TLS client.  The interface is the same
-as the interface for C<Net::HTTP>, but the constructor method take additional parameters
-as accepted by L<IO::Socket::SSL>.  The C<Net::HTTPS> object isa C<IO::Socket::SSL>
-too, which make it inherit additional methods from that base class.
+as the interface for C<Net::HTTP>, but the constructor takes additional parameters
+as accepted by L<IO::Socket::SSL>.  The C<Net::HTTPS> object is an C<IO::Socket::SSL>
+too, which makes it inherit additional methods from that base class.
 
 For historical reasons this module also supports using C<Net::SSL> (from the
 Crypt-SSLeay distribution) as its SSL driver and base class.  This base is
