@@ -1,6 +1,7 @@
 package Net::HTTPS;
 
 use strict;
+use warnings;
 use vars qw($VERSION $SSL_SOCKET_CLASS @ISA);
 
 $VERSION = "6.09";

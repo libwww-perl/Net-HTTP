@@ -1,6 +1,7 @@
 package Net::HTTP;
 
 use strict;
+use warnings;
 use vars qw($VERSION @ISA $SOCKET_CLASS);
 
 $VERSION = "6.09";

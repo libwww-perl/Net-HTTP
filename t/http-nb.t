@@ -1,6 +1,5 @@
-#!perl -w
-
 use strict;
+use warnings;
 use Test::More;
 plan skip_all => "This test doesn't work on Windows" if $^O eq "MSWin32";
 
