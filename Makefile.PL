@@ -15,6 +15,7 @@ else {
 }
 
 my $developer = -f '.gitignore';
+ExtUtils::MakeMaker->VERSION(6.98) if $developer;
 
 my %WriteMakefileArgs = (
     NAME => 'Net::HTTP',
@@ -56,9 +57,49 @@ my %WriteMakefileArgs = (
     },
 );
 
-WriteMakefile(
-    %WriteMakefileArgs,
-);
+my $eumm_version  = eval $ExtUtils::MakeMaker::VERSION;
+
+for (qw(configure build test runtime)) {
+    my $key = $_ eq 'runtime' ? 'PREREQ_PM' : uc $_.'_REQUIRES';
+    next unless exists $WriteMakefileArgs{META_ADD}{prereqs}{$_}
+             or exists $WriteMakefileArgs{$key};
+    my $r = $WriteMakefileArgs{$key} = {
+        %{$WriteMakefileArgs{META_ADD}{prereqs}{$_}{requires} || {}},
+        %{delete $WriteMakefileArgs{$key} || {}},
+    };
+    defined $r->{$_} or delete $r->{$_} for keys %$r;
+}
+
+# dynamic prereqs get added here.
+
+$WriteMakefileArgs{MIN_PERL_VERSION} = delete $WriteMakefileArgs{PREREQ_PM}{perl} || 0;
+
+die 'attention developer: you need to do a sane meta merge here!'
+    if keys %{$WriteMakefileArgs{BUILD_REQUIRES}};
+
+$WriteMakefileArgs{BUILD_REQUIRES} = {
+    %{$WriteMakefileArgs{BUILD_REQUIRES} || {}},
+    %{delete $WriteMakefileArgs{TEST_REQUIRES}}
+} if $eumm_version < 6.63_03;
+
+$WriteMakefileArgs{PREREQ_PM} = {
+    %{$WriteMakefileArgs{PREREQ_PM}},
+    %{delete $WriteMakefileArgs{BUILD_REQUIRES}}
+} if $eumm_version < 6.55_01;
+
+delete $WriteMakefileArgs{CONFIGURE_REQUIRES}
+    if $eumm_version < 6.51_03;
+
+delete $WriteMakefileArgs{MIN_PERL_VERSION}
+    if $eumm_version < 6.48;
+
+delete @WriteMakefileArgs{qw(META_ADD META_MERGE)}
+    if $eumm_version < 6.46;
+
+delete $WriteMakefileArgs{LICENSE}
+    if $eumm_version < 6.31;
+
+WriteMakefile(%WriteMakefileArgs);
 
 # pod2text is in https://metacpan.org/release/podlators
 system("pod2text $WriteMakefileArgs{VERSION_FROM} > README")
@@ -69,27 +110,3 @@ system("pod2text $WriteMakefileArgs{VERSION_FROM} > README")
 system("pod2markdown $WriteMakefileArgs{VERSION_FROM} > README.md")
     if $developer
         and (not -e 'README.md' or (stat('README.md'))[9] < (stat($WriteMakefileArgs{VERSION_FROM}))[9]);
-
-
-
-BEGIN {
-    # compatibility with older versions of MakeMaker
-    my $developer = -f ".gitignore";
-    my %mm_req = (
-        LICENCE => 6.31,
-        META_MERGE => 6.45,
-        META_ADD => 6.45,
-        MIN_PERL_VERSION => 6.48,
-    );
-    undef(*WriteMakefile);
-    *WriteMakefile = sub {
-        my %arg = @_;
-        for (keys %mm_req) {
-            unless (eval { ExtUtils::MakeMaker->VERSION($mm_req{$_}) }) {
-                warn "$_ $@" if $developer;
-                delete $arg{$_};
-            }
-        }
-        ExtUtils::MakeMaker::WriteMakefile(%arg);
-    };
-}
