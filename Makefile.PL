@@ -14,7 +14,9 @@ else {
     unlink($flag_file);
 }
 
-WriteMakefile(
+my $developer = -f '.gitignore';
+
+my %WriteMakefileArgs = (
     NAME => 'Net::HTTP',
     VERSION_FROM => 'lib/Net/HTTP.pm',
     ABSTRACT_FROM => 'lib/Net/HTTP.pm',
@@ -53,6 +55,21 @@ WriteMakefile(
         },
     },
 );
+
+WriteMakefile(
+    %WriteMakefileArgs,
+);
+
+# pod2text is in https://metacpan.org/release/podlators
+system("pod2text $WriteMakefileArgs{VERSION_FROM} > README")
+     if $developer
+        and (not -e 'README' or (stat('README'))[9] < (stat($WriteMakefileArgs{VERSION_FROM}))[9]);
+
+# pod2markdown is in https://metacpan.org/release/Pod-Markdown
+system("pod2markdown $WriteMakefileArgs{VERSION_FROM} > README.md")
+    if $developer
+        and (not -e 'README.md' or (stat('README.md'))[9] < (stat($WriteMakefileArgs{VERSION_FROM}))[9]);
+
 
 
 BEGIN {
