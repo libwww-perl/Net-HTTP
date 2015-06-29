@@ -3,6 +3,7 @@ package Net::HTTP::Methods;
 require 5.005;  # 4-arg substr
 
 use strict;
+use warnings;
 use vars qw($VERSION);
 use URI;
 

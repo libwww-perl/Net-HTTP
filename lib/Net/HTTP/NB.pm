@@ -1,6 +1,7 @@
 package Net::HTTP::NB;
 
 use strict;
+use warnings;
 use vars qw($VERSION @ISA);
 
 $VERSION = "6.09";

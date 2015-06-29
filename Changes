@@ -1,8 +1,9 @@
 Release history for Net-HTTP
 
 
-Karen Etheridge (1):
+Karen Etheridge (2):
       Added LICENSE
+      Added 'use warnings' to everywhere that lacked it
 
 
 

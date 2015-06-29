@@ -1,5 +1,3 @@
-#!perl -w
-
 BEGIN {
     unless (-f "t/LIVE_TESTS" || -f "LIVE_TESTS") {
 	print "1..0 # SKIP Live tests disabled; pass --live-tests to Makefile.PL to enable\n";
@@ -21,6 +19,7 @@ BEGIN {
 }
 
 use strict;
+use warnings;
 use Test;
 plan tests => 8;
 
