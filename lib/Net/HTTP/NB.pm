@@ -2,13 +2,11 @@ package Net::HTTP::NB;
 
 use strict;
 use warnings;
-use vars qw($VERSION @ISA);
 
-$VERSION = "6.09";
+our $VERSION = "6.09";
 $VERSION = eval $VERSION;
 
-require Net::HTTP;
-@ISA=qw(Net::HTTP);
+use base 'Net::HTTP';
 
 sub can_read {
     return 1;

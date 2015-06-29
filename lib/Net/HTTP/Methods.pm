@@ -1,13 +1,10 @@
 package Net::HTTP::Methods;
 
-require 5.005;  # 4-arg substr
-
 use strict;
 use warnings;
-use vars qw($VERSION);
 use URI;
 
-$VERSION = "6.09";
+our $VERSION = "6.09";
 $VERSION = eval $VERSION;
 
 my $CRLF = "\015\012";   # "\r\n" is not portable

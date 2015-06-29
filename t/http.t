@@ -10,9 +10,7 @@ my $LF   = "\012";
 
 {
     package HTTP;
-    use vars qw(@ISA);
-    require Net::HTTP::Methods;
-    @ISA=qw(Net::HTTP::Methods);
+    use base 'Net::HTTP::Methods';
 
     my %servers = (
       a => { "/" => "HTTP/1.0 200 OK${CRLF}Content-Type: text/plain${CRLF}Content-Length: 6${CRLF}${CRLF}Hello\n",
