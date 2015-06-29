@@ -1,6 +1,6 @@
 use strict;
 use warnings;
-use Test;
+use Test::More;
 
 plan tests => 37;
 #use Data::Dump ();
@@ -120,84 +120,84 @@ $res = $h->request(GET => "/");
 
 #Data::Dump::dump($res);
 
-ok($res->{code}, 200);
-ok($res->{content}, "Hello\n");
+is($res->{code}, 200);
+is($res->{content}, "Hello\n");
 
 $res = $h->request(GET => "/404");
-ok($res->{code}, 404);
+is($res->{code}, 404);
 
 $res = $h->request(TRACE => "/foo");
-ok($res->{code}, 200);
-ok($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Keep-Alive: 300${CRLF}Connection: Keep-Alive${CRLF}Host: a${CRLF}${CRLF}");
+is($res->{code}, 200);
+is($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Keep-Alive: 300${CRLF}Connection: Keep-Alive${CRLF}Host: a${CRLF}${CRLF}");
 
 # try to turn off keep alive
 $h->keep_alive(0);
 $res = $h->request(TRACE => "/foo");
-ok($res->{code}, "200");
-ok($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Connection: close${CRLF}Host: a${CRLF}${CRLF}");
+is($res->{code}, "200");
+is($res->{content}, "TRACE /foo HTTP/1.1${CRLF}Connection: close${CRLF}Host: a${CRLF}${CRLF}");
 
 # try a bad one
 # It's bad because 2nd 'HTTP/1.0 200' is illegal. But passes anyway if laxed => 1.
 $res = $h->request(GET => "/bad1", [], {laxed => 1});
-ok($res->{code}, "200");
-ok($res->{message}, "OK");
-ok("@{$res->{headers}}", "Server foo Content-type text/foo");
-ok($res->{content}, "abc\n");
+is($res->{code}, "200");
+is($res->{message}, "OK");
+is("@{$res->{headers}}", "Server foo Content-type text/foo");
+is($res->{content}, "abc\n");
 
 $res = $h->request(GET => "/bad1");
-ok($res->{error} =~ /Bad header/);
+like($res->{error}, qr/Bad header/);
 ok(!$res->{code});
 $h = undef;  # it is in a bad state now
 
 $h = HTTP->new("a") || die;  # reconnect
 $res = $h->request(GET => "/09", [], {laxed => 1});
-ok($res->{code}, "200");
-ok($res->{message}, "Assumed OK");
-ok($res->{content}, "Hello${CRLF}World!${CRLF}");
-ok($h->peer_http_version, "0.9");
+is($res->{code}, "200");
+is($res->{message}, "Assumed OK");
+is($res->{content}, "Hello${CRLF}World!${CRLF}");
+is($h->peer_http_version, "0.9");
 
 $res = $h->request(GET => "/09");
-ok($res->{error} =~ /^Bad response status line: 'Hello'/);
+like($res->{error}, qr/^Bad response status line: 'Hello'/);
 $h = undef;  # it's in a bad state again
 
 $h = HTTP->new(Host => "a", KeepAlive => 1, ReadChunkSize => 1) || die;  # reconnect
 $res = $h->request(GET => "/chunked");
-ok($res->{code}, 200);
-ok($res->{content}, "Hello");
-ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+is($res->{code}, 200);
+is($res->{content}, "Hello");
+is("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
 
 # once more
 $res = $h->request(GET => "/chunked");
-ok($res->{code}, "200");
-ok($res->{content}, "Hello");
-ok("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
+is($res->{code}, "200");
+is($res->{content}, "Hello");
+is("@{$res->{headers}}", "Transfer-Encoding chunked Content-MD5 xxx");
 
 # Test bogus headers. Chunked appearing twice is illegal, but happens anyway sometimes. [RT#77240]
 $res = $h->request(GET => "/chunked,chunked");
-ok($res->{code}, "200");
-ok($res->{content}, "Hello");
-ok("@{$res->{headers}}", "Transfer-Encoding chunked Transfer-Encoding chunked Content-MD5 xxx");
+is($res->{code}, "200");
+is($res->{content}, "Hello");
+is("@{$res->{headers}}", "Transfer-Encoding chunked Transfer-Encoding chunked Content-MD5 xxx");
 
 # test head
 $res = $h->request(HEAD => "/head");
-ok($res->{code}, "200");
-ok($res->{content}, "");
-ok("@{$res->{headers}}", "Content-Length 16 Content-Type text/plain");
+is($res->{code}, "200");
+is($res->{content}, "");
+is("@{$res->{headers}}", "Content-Length 16 Content-Type text/plain");
 
 $res = $h->request(GET => "/");
-ok($res->{code}, "200");
-ok($res->{content}, "Hello\n");
+is($res->{code}, "200");
+is($res->{content}, "Hello\n");
 
 $h = HTTP->new(Host => undef, PeerAddr => "a", );
 $h->http_version("1.0");
 ok(!defined $h->host);
 $res = $h->request(TRACE => "/");
-ok($res->{code}, "200");
-ok($res->{content}, "TRACE / HTTP/1.0\r\n\r\n");
+is($res->{code}, "200");
+is($res->{content}, "TRACE / HTTP/1.0\r\n\r\n");
 
 # check that headers with colons at the start of values don't break
 $res = $h->request(GET => '/colon-header');
-ok("@{$res->{headers}}", "Content-Type text/plain Content-Length 6 Bad-Header :foo");
+is("@{$res->{headers}}", "Content-Type text/plain Content-Length 6 Bad-Header :foo");
 
 require Net::HTTP;
 eval {

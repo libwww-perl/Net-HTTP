@@ -1,9 +1,10 @@
 Release history for Net-HTTP
 
 
-Karen Etheridge (2):
+Karen Etheridge (3):
       Added LICENSE
       Added 'use warnings' to everywhere that lacked it
+      Drop all use of Test.pm
 
 
 
