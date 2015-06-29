@@ -20,7 +20,7 @@ BEGIN {
 
 use strict;
 use warnings;
-use Test;
+use Test::More;
 plan tests => 8;
 
 use Net::HTTP;
@@ -57,10 +57,10 @@ for (1..2) {
     (my $out = $buf) =~ s/^/# /gm;
     print $out;
 
-    ok($code, "200");
-    ok($h{'Content-Type'}, "message/http");
+    is($code, "200");
+    is($h{'Content-Type'}, "message/http");
 
-    ok($buf, qr/^TRACE \/libwww-perl HTTP\/1/);
-    ok($buf, qr/^User-Agent: Mozilla\/5.0$/m);
+    is($buf, qr/^TRACE \/libwww-perl HTTP\/1/);
+    is($buf, qr/^User-Agent: Mozilla\/5.0$/m);
 }
 
