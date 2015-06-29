@@ -2,11 +2,11 @@ package Net::HTTP;
 
 use strict;
 use warnings;
-use vars qw($VERSION @ISA $SOCKET_CLASS);
 
-$VERSION = "6.09";
+our $VERSION = "6.09";
 $VERSION = eval $VERSION;
 
+use vars qw($SOCKET_CLASS);
 unless ($SOCKET_CLASS) {
     # Try several, in order of capability and preference
     if (eval { require IO::Socket::IP }) {
@@ -23,7 +23,7 @@ unless ($SOCKET_CLASS) {
 require Net::HTTP::Methods;
 require Carp;
 
-@ISA = ($SOCKET_CLASS, 'Net::HTTP::Methods');
+our @ISA = ($SOCKET_CLASS, 'Net::HTTP::Methods');
 
 sub new {
     my $class = shift;

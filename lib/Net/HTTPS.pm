@@ -2,12 +2,12 @@ package Net::HTTPS;
 
 use strict;
 use warnings;
-use vars qw($VERSION $SSL_SOCKET_CLASS @ISA);
 
-$VERSION = "6.09";
+our $VERSION = "6.09";
 $VERSION = eval $VERSION;
 
 # Figure out which SSL implementation to use
+use vars qw($SSL_SOCKET_CLASS);
 if ($SSL_SOCKET_CLASS) {
     # somebody already set it
 }
@@ -44,7 +44,7 @@ else {
 
 require Net::HTTP::Methods;
 
-@ISA=($SSL_SOCKET_CLASS, 'Net::HTTP::Methods');
+our @ISA=($SSL_SOCKET_CLASS, 'Net::HTTP::Methods');
 
 sub configure {
     my($self, $cnf) = @_;
