@@ -60,7 +60,7 @@ for (1..2) {
     is($code, "200");
     is($h{'Content-Type'}, "message/http");
 
-    is($buf, qr/^TRACE \/libwww-perl HTTP\/1/);
-    is($buf, qr/^User-Agent: Mozilla\/5.0$/m);
+    like($buf, qr/^TRACE \/libwww-perl HTTP\/1/);
+    like($buf, qr/^User-Agent: Mozilla\/5.0$/m);
 }
 
