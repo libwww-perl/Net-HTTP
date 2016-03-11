@@ -277,6 +277,8 @@ sub my_readline {
                     if(defined $bytes_read) {
                         $new_bytes += $bytes_read;
                         last if $bytes_read < 1024;
+                        # We got exactly 1024 bytes, so we need to select() to know if there is more data
+                        last unless $self->can_read(0);
                     }
                     elsif($!{EINTR} || $!{EAGAIN} || $!{EWOULDBLOCK}) {
                         redo READ;
