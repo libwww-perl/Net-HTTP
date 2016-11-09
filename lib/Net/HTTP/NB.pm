@@ -3,9 +3,6 @@ package Net::HTTP::NB;
 use strict;
 use warnings;
 
-our $VERSION = "6.09";
-$VERSION = eval $VERSION;
-
 use base 'Net::HTTP';
 
 sub can_read {
