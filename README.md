@@ -1,6 +1,12 @@
 # NAME
 
-Net::HTTP - Low-level HTTP connection (client)
+Net::HTTP
+
+[![Build Status](https://travis-ci.org/libwww-perl/Net-HTTP.png?branch=master)](https://travis-ci.org/libwww-perl/Net-HTTP)
+
+# VERSION
+
+version 6.09
 
 # SYNOPSIS
 
@@ -221,6 +227,10 @@ The following methods are provided (in addition to those of
 
     but might be more efficient.
 
+# NAME
+
+Net::HTTP - Low-level HTTP connection (client)
+
 # SUBCLASSING
 
 The read\_response\_headers() and read\_entity\_body() will invoke the
@@ -240,3 +250,14 @@ Copyright 2001-2003 Gisle Aas.
 
 This library is free software; you can redistribute it and/or
 modify it under the same terms as Perl itself.
+
+# AUTHOR
+
+Gisle Aas <gisle@activestate.com>
+
+# COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2001-2016 by Gisle Aas.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.

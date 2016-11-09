@@ -3,9 +3,6 @@ package Net::HTTP;
 use strict;
 use warnings;
 
-our $VERSION = "6.09";
-$VERSION = eval $VERSION;
-
 use vars qw($SOCKET_CLASS);
 unless ($SOCKET_CLASS) {
     # Try several, in order of capability and preference

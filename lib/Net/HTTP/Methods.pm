@@ -4,9 +4,6 @@ use strict;
 use warnings;
 use URI;
 
-our $VERSION = "6.09";
-$VERSION = eval $VERSION;
-
 my $CRLF = "\015\012";   # "\r\n" is not portable
 
 *_bytes = defined(&utf8::downgrade) ?
