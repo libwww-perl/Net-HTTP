@@ -14,6 +14,7 @@ requires "perl" => "5.006002";
 requires "strict" => "0";
 requires "vars" => "0";
 requires "warnings" => "0";
+recommends "IO::Socket::SSL" => "1.38";
 
 on 'test' => sub {
   requires "Data::Dumper" => "0";
