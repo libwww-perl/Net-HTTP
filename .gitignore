@@ -1,4 +1,5 @@
 /Makefile
+.build
 /Makefile.old
 /blib/
 /pm_to_blib
