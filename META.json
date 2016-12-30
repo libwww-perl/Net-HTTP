@@ -35,6 +35,9 @@
          }
       },
       "runtime" : {
+         "recommends" : {
+            "IO::Socket::SSL" : "1.38"
+         },
          "requires" : {
             "Carp" : "0",
             "Compress::Raw::Zlib" : "0",
