@@ -9,7 +9,11 @@ Karen Etheridge (4):
       Drop all use of Test.pm
       Removed unneeded uses of 'use vars'
 
+Andy Grundman (1):
+      Switch live tests to use Google.
 
+Lasse Makholm (1):
+      Fix RT#112313 - Hang in my_readline() when keep-alive => 1 and $reponse_size % 1024 == 0
 
 _______________________________________________________________________________
 2015-05-20 Net-HTTP 6.09
