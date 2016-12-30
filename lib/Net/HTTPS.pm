@@ -79,10 +79,9 @@ if ($SSL_SOCKET_CLASS eq "Net::SSL") {
 }
 
 1;
+__END__
 
-=head1 NAME
-
-Net::HTTPS - Low-level HTTP over SSL/TLS connection (client)
+#ABSTRACT: Low-level HTTP over SSL/TLS connection (client)
 
 =head1 DESCRIPTION
 

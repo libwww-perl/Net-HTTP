@@ -42,9 +42,7 @@ sub http_connect {
 
 __END__
 
-=head1 NAME
-
-Net::HTTP - Low-level HTTP connection (client)
+# ABSTRACT: Low-level HTTP connection (client)
 
 =head1 SYNOPSIS
 
@@ -281,12 +279,5 @@ names prefixed with C<http_> and C<io_>.
 =head1 SEE ALSO
 
 L<LWP>, L<IO::Socket::INET>, L<Net::HTTP::NB>
-
-=head1 COPYRIGHT
-
-Copyright 2001-2003 Gisle Aas.
-
-This library is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself.
 
 =cut

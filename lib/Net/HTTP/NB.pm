@@ -52,9 +52,7 @@ sub read_entity_body {
 
 __END__
 
-=head1 NAME
-
-Net::HTTP::NB - Non-blocking HTTP client
+#ABSTRACT: Non-blocking HTTP client
 
 =head1 SYNOPSIS
 
@@ -95,12 +93,5 @@ the value -1 is returned.
 =head1 SEE ALSO
 
 L<Net::HTTP>
-
-=head1 COPYRIGHT
-
-Copyright 2001 Gisle Aas.
-
-This library is free software; you can redistribute it and/or
-modify it under the same terms as Perl itself.
 
 =cut
