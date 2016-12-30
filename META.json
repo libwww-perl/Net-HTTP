@@ -80,7 +80,7 @@
       "x_IRC" : "irc://irc.perl.org/#lwp",
       "x_MailingList" : "mailto:libwww@perl.org"
    },
-   "version" : "6.09",
+   "version" : "6.10",
    "x_contributors" : [
       "Adam Kennedy <adamk@cpan.org>",
       "Adam Sjogren <asjo@koldfront.dk>",
