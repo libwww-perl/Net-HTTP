@@ -30,7 +30,3 @@ on 'configure' => sub {
 on 'configure' => sub {
   suggests "JSON::PP" => "2.27300";
 };
-
-on 'develop' => sub {
-  requires "Test::CPAN::Changes" => "0.19";
-};
