@@ -1,5 +1,5 @@
 BEGIN {
-    unless ( -f "t/LIVE_TESTS" || -f "LIVE_TESTS" ) {
+    unless ( $ENV{TRAVIS} || -f "t/LIVE_TESTS" || -f "LIVE_TESTS" ) {
         print "1..0 # SKIP Live tests disabled; pass --live-tests to Makefile.PL to enable\n";
         exit;
     }
