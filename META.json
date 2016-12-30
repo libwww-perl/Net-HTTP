@@ -4,7 +4,7 @@
       "Gisle Aas <gisle@activestate.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Dist::Zilla version 6.007, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Dist::Zilla version 6.008, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "perl_5"
    ],
@@ -88,6 +88,7 @@
       "Alex Kapranoff <ka@nadoby.ru>",
       "amire80 <amir.aharoni@gmail.com>",
       "Andreas J. Koenig <andreas.koenig@anima.de>",
+      "Andy Grundman <andyg@activestate.com>",
       "Bill Mann <wfmann@alum.mit.edu>",
       "Bron Gondwana <brong@fastmail.fm>",
       "Dagfinn Ilmari Manns\u00e5ker <ilmari@ilmari.org>",
@@ -144,6 +145,6 @@
       "Yuri Karaban <tech@askold.net>",
       "Zefram <zefram@fysh.org>"
    ],
-   "x_serialization_backend" : "Cpanel::JSON::XS version 3.0218"
+   "x_serialization_backend" : "Cpanel::JSON::XS version 3.0225"
 }
 
