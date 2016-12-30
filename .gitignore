@@ -12,3 +12,5 @@ xx*
 /MANIFEST.SKIP.bak
 /Net-HTTP-*/
 /Net-HTTP-*.tar.gz
+t/LIVE_TESTS
+.tidyall.d
