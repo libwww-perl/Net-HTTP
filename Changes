@@ -3,6 +3,8 @@ Release history for Net-HTTP
 _______________________________________________________________________________
 {{$NEXT}}
 
+6.10      2016-12-30 01:21:48-05:00 America/Toronto (TRIAL RELEASE)
+
 Karen Etheridge (4):
       Added LICENSE
       Added 'use warnings' to everywhere that lacked it

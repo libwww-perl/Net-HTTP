@@ -29,11 +29,6 @@
             "JSON::PP" : "2.27300"
          }
       },
-      "develop" : {
-         "requires" : {
-            "Test::CPAN::Changes" : "0.19"
-         }
-      },
       "runtime" : {
          "recommends" : {
             "IO::Socket::SSL" : "1.38"
@@ -66,7 +61,7 @@
          }
       }
    },
-   "release_status" : "stable",
+   "release_status" : "testing",
    "resources" : {
       "bugtracker" : {
          "web" : "https://github.com/libwww-perl/Net-HTTP/issues"
