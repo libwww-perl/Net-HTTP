@@ -1,6 +1,8 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+
+6.11      2017-01-04 15:05:57-05:00 America/Toronto
     - Updated the Changes file
     - When using Net::SSL, pending data was potentially ignored GH PR#7 (Jean-Louis Martineau)
 
