@@ -30,13 +30,6 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "IO::Socket" : "0",
-            "IO::Socket::INET6" : "0",
-            "IO::Socket::IP" : "0",
-            "IO::Socket::SSL" : "1.38",
-            "Symbol" : "0"
-         },
          "requires" : {
             "Carp" : "0",
             "Compress::Raw::Zlib" : "0",
@@ -48,6 +41,13 @@
             "strict" : "0",
             "vars" : "0",
             "warnings" : "0"
+         },
+         "suggests" : {
+            "IO::Socket" : "0",
+            "IO::Socket::INET6" : "0",
+            "IO::Socket::IP" : "0",
+            "IO::Socket::SSL" : "1.38",
+            "Symbol" : "0"
          }
       },
       "test" : {

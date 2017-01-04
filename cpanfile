@@ -8,11 +8,11 @@ requires "perl" => "5.006002";
 requires "strict" => "0";
 requires "vars" => "0";
 requires "warnings" => "0";
-recommends "IO::Socket" => "0";
-recommends "IO::Socket::INET6" => "0";
-recommends "IO::Socket::IP" => "0";
-recommends "IO::Socket::SSL" => "1.38";
-recommends "Symbol" => "0";
+suggests "IO::Socket" => "0";
+suggests "IO::Socket::INET6" => "0";
+suggests "IO::Socket::IP" => "0";
+suggests "IO::Socket::SSL" => "1.38";
+suggests "Symbol" => "0";
 
 on 'test' => sub {
   requires "Data::Dumper" => "0";
