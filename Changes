@@ -1,123 +1,61 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
 
-_______________________________________________________________________________
 {{$NEXT}}
+    - Updated the Changes file
+    - When using Net::SSL, pending data was potentially ignored GH PR#7
 
-6.10      2016-12-30 01:21:48-05:00 America/Toronto (TRIAL RELEASE)
+6.10-DEV     2016-12-30
+    - Added LICENSE
+    - Added 'use warnings' to everywhere that lacked it
+    - Drop all use of Test.pm
+    - Removed unneeded uses of 'use vars'
+    - Switch live tests to use Google.
+    - Fix RT#112313 - Hang in my_readline() when keep-alive => 1 and $reponse_size % 1024 == 0
 
-Karen Etheridge (4):
-      Added LICENSE
-      Added 'use warnings' to everywhere that lacked it
-      Drop all use of Test.pm
-      Removed unneeded uses of 'use vars'
+6.09    2015-05-20
+    - No changes since 6.08_002
 
-Andy Grundman (1):
-      Switch live tests to use Google.
+6.08_002    2015-05-02
+    - Fix foolish $VERSION error in 6.08_001 (Karen Etheridge)
 
-Lasse Makholm (1):
-      Fix RT#112313 - Hang in my_readline() when keep-alive => 1 and $reponse_size % 1024 == 0
+6.08_001    2015-05-01
+    - resolve issues with SSL by reading bytes still waiting to be read after
+      the initial 1024 bytes [RT#104122] (Mark Overmeer)
 
-_______________________________________________________________________________
-2015-05-20 Net-HTTP 6.09
+6.07    2014-07-23
+    - Opportunistically use IO::Socket::IP or IO::Socket::INET6. (Jason Fesler)
+    - Properly parse IPv6 literal addresses with optional port numbers. [RT#75618]
 
-Karen Etheridge (1):
-      No changes since 6.08_002
+6.06    2013-03-10
+    - IO::Socket::SSL doesn't play well with select() [RT#81237] (Jesse Luehrs)
 
+6.05    2012-11-10
+    - Convert to Test::More style and disable test on Windows [RT#81090] (Gisle Aas)
+    - SSL broken for some servers [RT#81073] (Marinos Yannikos)
 
+6.04    2012-11-08
+    - Simpler handling of double chunked [RT#77240] (Gisle Aas)
+    - Check for timeouts before reading [RT#72676] (Gisle Aas)
+    - Fake can_read (Gisle Aas)
+    - Fix chunked decoding on temporary read error [RT#74431] (Dagfinn Ilmari Mannsåker)
+    - NB: set http_bytes if read_entity_body hits EAGAIN on first read (Eric Wong)
+    - chunked,chunked is invalid, but happens. Ignore all but the first. [RT#77240] (Jay Hannah)
 
-_______________________________________________________________________________
-2015-05-02 Net-HTTP 6.08_002
+6.03    2012-02-16
+    - Restore blocking override for Net::SSL [RT#72790]
+    - Restore perl-5.6 compatibility.
 
-Karen Etheridge (1):
-      fix foolish $VERSION error in 6.08_001
+6.02    2011-11-21
+    - Don't disable blocking method [RT#72580]
+    - Don't stop on unrecognized Makefile.PL arguments [RT#68337]
+    - Document Net:HTTPS [RT#71599]
 
+6.01    2011-03-17
+    - Don't run live test by default; 'perl Makefile.PL --live-tests' to enable.
+    - More relaxed apache test; should pass even if proxies has added headers.
 
-
-_______________________________________________________________________________
-2015-05-01 Net-HTTP 6.08_001
-
-Mark Overmeer (1):
-      resolve issues with SSL by reading bytes still waiting to be read after
-      the initial 1024 bytes [RT#104122]
-
-
-
-_______________________________________________________________________________
-2014-07-23 Net-HTTP 6.07
-
-Jason Fesler (1):
-      Opportunistically use IO::Socket::IP or IO::Socket::INET6.
-      Properly parse IPv6 literal addreses with optional port numbers. [RT#75618]
-
-
-
-_______________________________________________________________________________
-2013-03-10 Net-HTTP 6.06
-
-Jesse Luehrs (1):
-      IO::Socket::SSL doesn't play well with select() [RT#81237]
-
-
-
-_______________________________________________________________________________
-2012-11-10 Net-HTTP 6.05
-
-Gisle Aas (1):
-      Convert to Test::More style and disable test on Windows [RT#81090]
-
-Marinos Yannikos (1):
-      SSL broken for some servers [RT#81073]
-
-
-
-_______________________________________________________________________________
-2012-11-08 Net-HTTP 6.04
-
-Gisle Aas (3):
-      Simpler handling of double chunked [RT#77240]
-      Check for timeouts before reading [RT#72676]
-      Fake can_read
-
-Dagfinn Ilmari Mannsåker (1):
-      Fix chunked decoding on temporary read error [RT#74431]
-
-Eric Wong (1):
-      NB: set http_bytes if read_entity_body hits EAGAIN on first read
-
-Jay Hannah (1):
-      chunked,chunked is invalid, but happens. :( Ignore all but the first. [RT#77240]
-
-
-
-_______________________________________________________________________________
-2012-02-16 Net-HTTP 6.03
-
-Restore blocking override for Net::SSL [RT#72790]
-
-Restore perl-5.6 compatibility.
-
-
-_______________________________________________________________________________
-2011-11-21 Net-HTTP 6.02
-
-Don't disable blocking method [RT#72580]
-Don't stop on unrecognized Makefile.PL arguments [RT#68337]
-Document Net:HTTPS [RT#71599]
-
-
-
-_______________________________________________________________________________
-2011-03-17 Net-HTTP 6.01
-
-Don't run live test by default.  Run 'perl Makefile.PL --live-tests' to enable.
-More relaxed apache test; should pass even if proxies has added headers.
-
-
-
-_______________________________________________________________________________
-2011-02-27 Net-HTTP 6.00
-
-Initial release of Net-HTTP as a separate distribution. There are no code
-changes besides incrementing the version number since libwww-perl-5.837.
-
-The Net::HTTP module used to be bundled with the libwww-perl distribution.
+6.00    2011-02-27
+    - Initial release of Net-HTTP as a separate distribution.
+    - No code changes.
+    - Version bump to be ahead of old release
+    - The Net::HTTP module used to be bundled with the libwww-perl distribution.
