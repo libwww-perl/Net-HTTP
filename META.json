@@ -30,26 +30,24 @@
          }
       },
       "runtime" : {
-         "recommends" : {
-            "IO::Socket::SSL" : "1.38"
-         },
          "requires" : {
             "Carp" : "0",
             "Compress::Raw::Zlib" : "0",
-            "IO::Socket" : "0",
             "IO::Socket::INET" : "0",
-            "IO::Socket::INET6" : "0",
-            "IO::Socket::IP" : "0",
-            "IO::Socket::SSL" : "0",
             "IO::Uncompress::Gunzip" : "0",
-            "Net::SSL" : "0",
-            "Symbol" : "0",
             "URI" : "0",
             "base" : "0",
             "perl" : "5.006002",
             "strict" : "0",
             "vars" : "0",
             "warnings" : "0"
+         },
+         "suggests" : {
+            "IO::Socket" : "0",
+            "IO::Socket::INET6" : "0",
+            "IO::Socket::IP" : "0",
+            "IO::Socket::SSL" : "1.38",
+            "Symbol" : "0"
          }
       },
       "test" : {
@@ -75,7 +73,7 @@
       "x_IRC" : "irc://irc.perl.org/#lwp",
       "x_MailingList" : "mailto:libwww@perl.org"
    },
-   "version" : "6.11",
+   "version" : "6.12",
    "x_contributors" : [
       "Adam Kennedy <adamk@cpan.org>",
       "Adam Sjogren <asjo@koldfront.dk>",
