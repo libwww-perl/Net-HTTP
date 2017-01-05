@@ -2,6 +2,9 @@ Release history for {{$dist->name}}
 
 {{$NEXT}}
 
+6.12      2017-01-04 23:32:54-05:00 America/Toronto
+    - Fix prereqs
+
 6.11      2017-01-04 15:05:57-05:00 America/Toronto
     - Updated the Changes file
     - When using Net::SSL, pending data was potentially ignored GH PR#7 (Jean-Louis Martineau)
