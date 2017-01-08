@@ -1,6 +1,6 @@
 BEGIN {
-    unless ( $ENV{TRAVIS} || -f "t/LIVE_TESTS" || -f "LIVE_TESTS" ) {
-        print "1..0 # SKIP Live tests disabled; pass --live-tests to Makefile.PL to enable\n";
+    if ( $ENV{NO_NETWORK_TESTING} ) {
+        print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
         exit;
     }
     eval {
