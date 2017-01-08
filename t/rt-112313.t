@@ -1,3 +1,23 @@
+BEGIN {
+  if ( $ENV{NO_NETWORK_TESTING} ) {
+    print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
+    exit;
+  }
+  eval {
+        require IO::Socket::INET;
+        my $s = IO::Socket::INET->new(
+            PeerHost => "httpbin.org:80",
+            Timeout  => 5,
+        );
+        die "Can't connect: $@" unless $s;
+  };
+  if ($@) {
+        print "1..0 # SKIP Can't connect to httpbin.org\n";
+        print $@;
+        exit;
+  }
+}
+
 use strict;
 use warnings;
 use Test::More;
@@ -15,11 +35,6 @@ use Net::HTTP;
 # So, we check that the reponse growth is only one byte after each iteration and also test multiple
 # times across the 1024, 2048 and 3072 boundaries...
 
-unless (-f "t/LIVE_TESTS" || -f "LIVE_TESTS")
-{
-    print "1..0 # SKIP Live tests disabled; pass --live-tests to Makefile.PL to enable\n";
-    exit;
-}
 
 sub try
 {
