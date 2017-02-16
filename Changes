@@ -15,7 +15,7 @@ Release history for {{$dist->name}}
     - Drop all use of Test.pm
     - Removed unneeded uses of 'use vars'
     - Switch live tests to use Google.
-    - Fix RT#112313 - Hang in my_readline() when keep-alive => 1 and $reponse_size % 1024 == 0
+    - Fix RT#112313 - Hang in my_readline() when keep-alive => 1 and $response_size % 1024 == 0
 
 6.09    2015-05-20
     - No changes since 6.08_002
