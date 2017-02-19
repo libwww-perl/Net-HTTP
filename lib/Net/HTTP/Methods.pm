@@ -321,8 +321,8 @@ sub can_read {
         $before = time if $timeout;
         my $nfound = select($fbits, undef, undef, $timeout);
         if ($nfound < 0) {
-            if ($!{EINTR} || $!{EAGAIN}) {
-                # don't really think EAGAIN can happen here
+            if ($!{EINTR} || $!{EAGAIN} || $!{EWOULDBLOCK}) {
+                # don't really think EAGAIN/EWOULDBLOCK can happen here
                 if ($timeout) {
                     $timeout -= time - $before;
                     $timeout = 0 if $timeout < 0;
