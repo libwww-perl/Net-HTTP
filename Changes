@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - use EWOULDBLOCK as well on all places where EAGAIN is used (GH PR#24)
 
 6.12      2017-01-04 23:32:54-05:00 America/Toronto
     - Fix prereqs

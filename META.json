@@ -73,7 +73,7 @@
       "x_IRC" : "irc://irc.perl.org/#lwp",
       "x_MailingList" : "mailto:libwww@perl.org"
    },
-   "version" : "6.12",
+   "version" : "6.13",
    "x_contributors" : [
       "Adam Kennedy <adamk@cpan.org>",
       "Adam Sjogren <asjo@koldfront.dk>",
@@ -87,6 +87,7 @@
       "Chase Whitener <cwhitener@gmail.com>",
       "Dagfinn Ilmari Manns\u00e5ker <ilmari@ilmari.org>",
       "Daniel Hedlund <Daniel.Hedlund@eprize.com>",
+      "Dave Rolsky <autarch@urth.org>",
       "David E. Wheeler <david@justatheory.com>",
       "DAVIDRW <davidrw@cpan.org>",
       "David Steinbrunner <dsteinbrunner@pobox.com>",
@@ -130,6 +131,7 @@
       "Slaven Rezic <slaven@rezic.de>",
       "Slaven Rezic <srezic@iconmobile.com>",
       "Spiros Denaxas <s.denaxas@gmail.com>",
+      "Steffen Ullrich <Steffen_Ullrich@genua.de>",
       "Steve Hay <SteveHay@planit.com>",
       "Todd Lipcon <todd@amiestreet.com>",
       "Tom Hukins <tom@eborcom.com>",
