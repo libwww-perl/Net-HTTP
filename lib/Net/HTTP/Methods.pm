@@ -269,23 +269,17 @@ sub my_readline {
                      or die "read timeout";
 
                 # consume all incoming bytes
-                while(1) {
-                    my $bytes_read = $self->sysread($_, 1024, length);
-                    if(defined $bytes_read) {
-                        $new_bytes += $bytes_read;
-                        last if $bytes_read < 1024;
-                        # We got exactly 1024 bytes, so we need to select() to know if there is more data
-                        last unless $self->can_read(0);
-                    }
-                    elsif($!{EINTR} || $!{EAGAIN} || $!{EWOULDBLOCK}) {
-                        redo READ;
-                    }
-                    else {
-                        # if we have already accumulated some data let's at
-                        # least return that as a line
-                        length or die "$what read failed: $!";
-                        last;
-                    }
+                my $bytes_read = $self->sysread($_, 1024, length);
+                if(defined $bytes_read) {
+                    $new_bytes += $bytes_read;
+                }
+                elsif($!{EINTR} || $!{EAGAIN} || $!{EWOULDBLOCK}) {
+                    redo READ;
+                }
+                else {
+                    # if we have already accumulated some data let's at
+                    # least return that as a line
+                    length or die "$what read failed: $!";
                 }
 
                 # no line-ending, no new bytes
