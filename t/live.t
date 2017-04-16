@@ -6,13 +6,13 @@ BEGIN {
     eval {
         require IO::Socket::INET;
         my $s = IO::Socket::INET->new(
-            PeerHost => "www.google.com:80",
+            PeerHost => "www.cpan.org:80",
             Timeout  => 5,
         );
         die "Can't connect: $@" unless $s;
     };
     if ($@) {
-        print "1..0 # SKIP Can't connect to www.google.com\n";
+        print "1..0 # SKIP Can't connect to www.cpan.org\n";
         print $@;
         exit;
     }
@@ -26,7 +26,7 @@ plan tests => 6;
 use Net::HTTP;
 
 my $s = Net::HTTP->new(
-    Host            => "www.google.com",
+    Host            => "www.cpan.org",
     KeepAlive       => 1,
     Timeout         => 15,
     PeerHTTPVersion => "1.1",
