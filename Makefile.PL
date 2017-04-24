@@ -29,11 +29,13 @@ my %WriteMakefileArgs = (
   },
   "TEST_REQUIRES" => {
     "Data::Dumper" => 0,
+    "ExtUtils::MakeMaker" => 0,
+    "File::Spec" => 0,
     "IO::Select" => 0,
     "Socket" => 0,
     "Test::More" => 0
   },
-  "VERSION" => "6.13",
+  "VERSION" => "6.14",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -44,6 +46,8 @@ my %FallbackPrereqs = (
   "Carp" => 0,
   "Compress::Raw::Zlib" => 0,
   "Data::Dumper" => 0,
+  "ExtUtils::MakeMaker" => 0,
+  "File::Spec" => 0,
   "IO::Select" => 0,
   "IO::Socket::INET" => 0,
   "IO::Uncompress::Gunzip" => 0,

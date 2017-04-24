@@ -2,6 +2,11 @@ Release history for {{$dist->name}}
 
 {{$NEXT}}
 
+6.14      2017-04-24 11:27:26-04:00 America/Toronto
+    - Improvements to live tests (Shoichi Kaji and Kent Fredric)
+    - Fix a bug where downloading files is sometimes very slow GH#44 (Shoichi
+      Kaji)
+
 6.13      2017-02-19 21:40:54-05:00 America/Toronto
     - use EWOULDBLOCK as well on all places where EAGAIN is used (GH PR#24)
 

@@ -16,9 +16,15 @@ suggests "Symbol" => "0";
 
 on 'test' => sub {
   requires "Data::Dumper" => "0";
+  requires "ExtUtils::MakeMaker" => "0";
+  requires "File::Spec" => "0";
   requires "IO::Select" => "0";
   requires "Socket" => "0";
   requires "Test::More" => "0";
+};
+
+on 'test' => sub {
+  recommends "CPAN::Meta" => "2.120900";
 };
 
 on 'configure' => sub {
