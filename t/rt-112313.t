@@ -57,6 +57,14 @@ sub try
 
     my ($code, $mess, @headers) = $s->read_response_headers();
 
+    # XXX remove X-Processed-Time header
+    for my $i (0..$#headers) {
+        if ($headers[$i] eq 'X-Processed-Time') {
+            splice @headers, $i, 2;
+            last;
+        }
+    }
+
     my $body = '';
     while ($s->read_entity_body(my $buf, 1024))
     {

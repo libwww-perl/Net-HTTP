@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Fix t/rt-112313.t (Shoichi Kaji)
 
 6.14      2017-04-24 11:27:26-04:00 America/Toronto
     - Improvements to live tests (Shoichi Kaji and Kent Fredric)
