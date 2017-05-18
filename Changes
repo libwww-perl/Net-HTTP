@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Bump IO::Socket::SSL version from 1.38 to 2.012
 
 6.15      2017-05-12 14:57:02+02:00 Europe/Paris
     - Fix t/rt-112313.t (Shoichi Kaji)
