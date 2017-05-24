@@ -638,3 +638,7 @@ sub inflate_ok {
 } # BEGIN
 
 1;
+
+__END__
+
+# ABSTRACT: Represents method for Net::HTTP
