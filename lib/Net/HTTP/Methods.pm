@@ -641,4 +641,4 @@ sub inflate_ok {
 
 __END__
 
-# ABSTRACT: Represents method for Net::HTTP
+# ABSTRACT: Methods shared by Net::HTTP and Net::HTTPS
