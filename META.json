@@ -78,7 +78,7 @@
       "x_IRC" : "irc://irc.perl.org/#lwp",
       "x_MailingList" : "mailto:libwww@perl.org"
    },
-   "version" : "6.15",
+   "version" : "6.16",
    "x_contributors" : [
       "Adam Kennedy <adamk@cpan.org>",
       "Adam Sjogren <asjo@koldfront.dk>",
@@ -124,6 +124,7 @@
       "Mark Stosberg <mark@summersault.com>",
       "Mike Schilli <github@perlmeister.com>",
       "Mike Schilli <mschilli@yahoo-inc.com>",
+      "Mohammad S Anwar <mohammad.anwar@yahoo.com>",
       "murphy <murphy@genome.chop.edu>",
       "Olaf Alders <olaf@wundersolutions.com>",
       "Ondrej Hanak <ondrej.hanak@ubs.com>",
