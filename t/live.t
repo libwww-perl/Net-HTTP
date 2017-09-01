@@ -6,13 +6,13 @@ BEGIN {
     eval {
         require IO::Socket::INET;
         my $s = IO::Socket::INET->new(
-            PeerHost => "www.cpan.org:80",
+            PeerHost => "www.neverssl.com:80",
             Timeout  => 5,
         );
         die "Can't connect: $@" unless $s;
     };
     if ($@) {
-        print "1..0 # SKIP Can't connect to www.cpan.org\n";
+        print "1..0 # SKIP Can't connect to www.neverssl.com\n";
         print $@;
         exit;
     }
@@ -26,7 +26,7 @@ plan tests => 6;
 use Net::HTTP;
 
 my $s = Net::HTTP->new(
-    Host            => "www.cpan.org",
+    Host            => "www.neverssl.com",
     KeepAlive       => 1,
     Timeout         => 15,
     PeerHTTPVersion => "1.1",
@@ -62,4 +62,3 @@ for ( 1 .. 2 ) {
     like( $h{'Content-Type'}, qr{text/html} );
     like( $buf, qr{</html>}i );
 }
-
