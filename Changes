@@ -1,6 +1,8 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Fix test which relied on cpan.org speaking plain HTTP GH#54 (Chase
+      Whitener)
 
 6.16      2017-05-29 10:46:24-04:00 America/Toronto
     - Bump IO::Socket::SSL version from 1.38 to 2.012
