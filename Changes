@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Move test that relies on http://httpbin.org to author tests
 
 6.17      2017-09-01 15:30:20Z
     - Fix test which relied on cpan.org speaking plain HTTP GH#54 (Chase
