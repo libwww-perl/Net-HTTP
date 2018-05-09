@@ -1,5 +1,5 @@
 package Net::HTTP;
-
+our $VERSION = '6.19';
 use strict;
 use warnings;
 

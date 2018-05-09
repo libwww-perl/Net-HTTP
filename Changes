@@ -1,4 +1,6 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
+
+{{$NEXT}}
 
 6.18      2018-05-09 14:55:43Z
     - Move test that relies on http://httpbin.org to author tests
