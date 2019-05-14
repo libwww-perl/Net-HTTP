@@ -39,7 +39,11 @@ my $s = Net::HTTPS->new(
     MaxLineLength   => 512
 ) || die "$@";
 
-for ( 1 .. 2 ) {
+my $connection_is_kept_alive;
+SKIP: for my $pass ( 1 .. 2 ) {
+    skip "No keep-alive connection, cannot do another request", 3
+	if $pass == 2 && !$connection_is_kept_alive;
+
     $s->write_request(
         GET               => "/",
         'User-Agent'      => 'Mozilla/5.0',
@@ -52,6 +56,9 @@ for ( 1 .. 2 ) {
     print "# $code $mess\n";
     for ( sort keys %h ) {
         print "# $_: $h{$_}\n";
+        if (/^Connection$/i && $h{$_} =~ /^keep-alive$/) {
+            $connection_is_kept_alive = 1;
+        }
     }
     print "#\n";
 
