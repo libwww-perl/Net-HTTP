@@ -6,7 +6,7 @@ Net::HTTP - Low-level HTTP connection (client)
 
 # VERSION
 
-version 6.18
+version 6.19
 
 # SYNOPSIS
 

@@ -1,9 +1,11 @@
-Release history for {{$dist->name}}
+Release history for Net-HTTP
 
-{{$NEXT}}
+6.19      2019-05-16 19:16:59Z
+    - partially skip live-https.t if there's no keep-alive connection (GH#58) (Slaven Rezić)
+    - set "x_static_install" : 1 in META files
 
 6.18      2018-05-09 14:55:43Z
-    - Move test that relies on http://httpbin.org to author tests
+    - Move httpbin.org tests to author testing (GH#56) (Olaf Alders)
 
 6.17      2017-09-01 15:30:20Z
     - Fix test which relied on cpan.org speaking plain HTTP GH#54 (Chase
