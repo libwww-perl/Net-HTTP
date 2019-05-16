@@ -1,4 +1,6 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
+
+{{$NEXT}}
 
 6.19      2019-05-16 19:16:59Z
     - partially skip live-https.t if there's no keep-alive connection (GH#58) (Slaven Rezić)
