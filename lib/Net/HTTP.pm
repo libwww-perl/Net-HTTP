@@ -67,7 +67,7 @@ HTTP protocol is described in RFC 2616.  The C<Net::HTTP> class
 supports C<HTTP/1.0> and C<HTTP/1.1>.
 
 C<Net::HTTP> is a sub-class of one of C<IO::Socket::IP> (IPv6+IPv4),
-C<IO::Socket::INET6> (IPv6+IPv4), or C<IO::Socket::INET> (IPv4 only).  
+C<IO::Socket::INET6> (IPv6+IPv4), or C<IO::Socket::INET> (IPv4 only).
 You can mix the methods described below with reading and writing from the
 socket directly.  This is not necessary a good idea, unless you know what
 you are doing.
@@ -164,7 +164,7 @@ format_request().  Returns true if successful.
 
 =item $s->format_chunk( $data )
 
-Returns the string to be written for the given chunk of data.  
+Returns the string to be written for the given chunk of data.
 
 =item $s->write_chunk($data)
 
