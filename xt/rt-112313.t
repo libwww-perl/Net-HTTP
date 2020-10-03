@@ -23,7 +23,7 @@ use warnings;
 use Test::More;
 use Net::HTTP;
 
-# Attempt to verify that RT#112313 (Hang in my_readline() when keep-alive => 1 and $reponse_size % 1024 == 0) is fixed
+# Attempt to verify that RT#112313 (Hang in my_readline() when keep-alive => 1 and $response_size % 1024 == 0) is fixed
 
 # To do that, we need responses (headers + body) that are even multiples of 1024 bytes. So we
 # iterate over the same URL, trying to grow the response size incrementally...
@@ -32,7 +32,7 @@ use Net::HTTP;
 # the Content-Length also rolls over to one more digit, thus increasing the total response by two
 # bytes.
 
-# So, we check that the reponse growth is only one byte after each iteration and also test multiple
+# So, we check that the response growth is only one byte after each iteration and also test multiple
 # times across the 1024, 2048 and 3072 boundaries...
 
 
@@ -109,7 +109,7 @@ for my $kb (1024, 2048, 3072)
             or diag("error: $@");
 
         # Verify that response length only increased by one since the whole test rests on that assumption...
-        is($len - $last, 1, 'reponse length increased by 1') if $last;
+        is($len - $last, 1, 'response length increased by 1') if $last;
 
         $last = $len;
     }
