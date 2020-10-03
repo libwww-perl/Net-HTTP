@@ -1,3 +1,8 @@
+# This test requires a locally deployed httpbin
+#
+# $ docker pull kennethreitz/httpbin
+# $ docker run -p 31234:80 kennethreitz/httpbin
+
 BEGIN {
   if ( $ENV{NO_NETWORK_TESTING} ) {
     print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
@@ -6,13 +11,13 @@ BEGIN {
   eval {
         require IO::Socket::INET;
         my $s = IO::Socket::INET->new(
-            PeerHost => "httpbin.org:80",
+            PeerHost => "localhost:31234",
             Timeout  => 5,
         );
         die "Can't connect: $@" unless $s;
   };
   if ($@) {
-        print "1..0 # SKIP Can't connect to httpbin.org\n";
+        print "1..0 # SKIP Can't connect to localhost\n";
         print $@;
         exit;
   }
@@ -42,7 +47,7 @@ sub try
 
     # Need a new socket every time because we're testing with Keep-Alive...
     my $s = Net::HTTP->new(
-        Host            => "httpbin.org",
+        Host            => "localhost:31234",
         KeepAlive       => 1,
         PeerHTTPVersion => "1.1",
     ) or die "$@";
