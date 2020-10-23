@@ -6,7 +6,6 @@ requires "URI" => "0";
 requires "base" => "0";
 requires "perl" => "5.006002";
 requires "strict" => "0";
-requires "vars" => "0";
 requires "warnings" => "0";
 suggests "IO::Socket" => "0";
 suggests "IO::Socket::INET6" => "0";

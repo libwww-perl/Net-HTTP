@@ -3,7 +3,7 @@ our $VERSION = '6.20';
 use strict;
 use warnings;
 
-use vars qw($SOCKET_CLASS);
+our $SOCKET_CLASS;
 unless ($SOCKET_CLASS) {
     # Try several, in order of capability and preference
     if (eval { require IO::Socket::IP }) {

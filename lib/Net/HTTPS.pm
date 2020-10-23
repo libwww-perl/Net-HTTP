@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 # Figure out which SSL implementation to use
-use vars qw($SSL_SOCKET_CLASS);
+our $SSL_SOCKET_CLASS;
 if ($SSL_SOCKET_CLASS) {
     # somebody already set it
 }
