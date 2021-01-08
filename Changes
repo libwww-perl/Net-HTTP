@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Replace last use of "vars" with "our" (GH#67) (James Raspass)
 
 6.19      2019-05-16 19:16:59Z
     - partially skip live-https.t if there's no keep-alive connection (GH#58) (Slaven Rezić)
