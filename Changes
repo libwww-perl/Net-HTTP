@@ -1,6 +1,6 @@
-Release history for {{$dist->name}}
+Release history for Net-HTTP
 
-{{$NEXT}}
+6.20      2021-01-08 16:22:23Z
     - Replace last use of "vars" with "our" (GH#67) (James Raspass)
 
 6.19      2019-05-16 19:16:59Z

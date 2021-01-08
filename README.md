@@ -2,11 +2,9 @@
 
 Net::HTTP - Low-level HTTP connection (client)
 
-[![Build Status](https://travis-ci.org/libwww-perl/Net-HTTP.png?branch=master)](https://travis-ci.org/libwww-perl/Net-HTTP)
-
 # VERSION
 
-version 6.19
+version 6.20
 
 # SYNOPSIS
 
@@ -31,7 +29,7 @@ HTTP protocol is described in RFC 2616.  The `Net::HTTP` class
 supports `HTTP/1.0` and `HTTP/1.1`.
 
 `Net::HTTP` is a sub-class of one of `IO::Socket::IP` (IPv6+IPv4),
-`IO::Socket::INET6` (IPv6+IPv4), or `IO::Socket::INET` (IPv4 only).  
+`IO::Socket::INET6` (IPv6+IPv4), or `IO::Socket::INET` (IPv4 only).
 You can mix the methods described below with reading and writing from the
 socket directly.  This is not necessary a good idea, unless you know what
 you are doing.
@@ -126,7 +124,7 @@ The following methods are provided (in addition to those of
 
 - $s->format\_chunk( $data )
 
-    Returns the string to be written for the given chunk of data.  
+    Returns the string to be written for the given chunk of data.
 
 - $s->write\_chunk($data)
 
@@ -154,7 +152,7 @@ The following methods are provided (in addition to those of
 - ($code, $mess, %headers) = $s->read\_response\_headers( %opts )
 
     Read response headers from server and return it.  The $code is the 3
-    digit HTTP status code (see [HTTP::Status](https://metacpan.org/pod/HTTP::Status)) and $mess is the textual
+    digit HTTP status code (see [HTTP::Status](https://metacpan.org/pod/HTTP%3A%3AStatus)) and $mess is the textual
     message that came with it.  Headers are then returned as key/value
     pairs.  Since key letter casing is not normalized and the same key can
     even occur multiple times, assigning these values directly to a hash
@@ -238,7 +236,7 @@ names prefixed with `http_` and `io_`.
 
 # SEE ALSO
 
-[LWP](https://metacpan.org/pod/LWP), [IO::Socket::INET](https://metacpan.org/pod/IO::Socket::INET), [Net::HTTP::NB](https://metacpan.org/pod/Net::HTTP::NB)
+[LWP](https://metacpan.org/pod/LWP), [IO::Socket::INET](https://metacpan.org/pod/IO%3A%3ASocket%3A%3AINET), [Net::HTTP::NB](https://metacpan.org/pod/Net%3A%3AHTTP%3A%3ANB)
 
 # AUTHOR
 
