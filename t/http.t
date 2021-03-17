@@ -2,7 +2,7 @@ use strict;
 use warnings;
 use Test::More;
 
-plan tests => 37;
+plan tests => 38;
 #use Data::Dump ();
 
 my $CRLF = "\015\012";
@@ -204,3 +204,13 @@ eval {
 print "# $@";
 ok($@);
 
+$@ = '';
+eval {
+    $h = HTTP->new(
+	PeerAddr	=> 0,
+	PeerPort	=> 5000,
+	Proto		=> 'tcp',
+    );
+};
+print '# $@ is ', $@ ? $@ : "''\n";
+ok(!$@);
