@@ -1,5 +1,5 @@
 package Net::HTTPS;
-our $VERSION = '6.21';
+our $VERSION = '6.22';
 use strict;
 use warnings;
 

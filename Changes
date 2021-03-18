@@ -1,4 +1,6 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
+
+{{$NEXT}}
 
 6.21      2021-03-18 21:56:42Z
     - Accept PeerAddr of 0. (GH#72) (trwyant)
