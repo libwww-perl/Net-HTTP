@@ -1,6 +1,7 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Accept PeerAddr of 0. (GH#72) (trwyant)
 
 6.20      2021-01-08 16:22:23Z
     - Replace last use of "vars" with "our" (GH#67) (James Raspass)
