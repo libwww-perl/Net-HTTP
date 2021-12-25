@@ -15,3 +15,5 @@ xx*
 /Net-HTTP-*.tar.gz
 t/LIVE_TESTS
 .tidyall.d
+/local/
+/cover_db/
