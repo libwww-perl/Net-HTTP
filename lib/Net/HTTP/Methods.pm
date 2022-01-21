@@ -1,5 +1,5 @@
 package Net::HTTP::Methods;
-our $VERSION = '6.22';
+our $VERSION = '6.23';
 use strict;
 use warnings;
 use URI;

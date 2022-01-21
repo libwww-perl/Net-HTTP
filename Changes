@@ -1,4 +1,6 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
+
+{{$NEXT}}
 
 6.22      2022-01-21 20:41:21Z
     - Format method bullet points as code in docs (GH#77) (Paul Cochrane)
