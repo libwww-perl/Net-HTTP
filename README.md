@@ -4,7 +4,7 @@ Net::HTTP - Low-level HTTP connection (client)
 
 # VERSION
 
-version 6.21
+version 6.22
 
 # SYNOPSIS
 
@@ -37,7 +37,7 @@ you are doing.
 The following methods are provided (in addition to those of
 `IO::Socket::INET`):
 
-- $s = Net::HTTP->new( %options )
+- `$s = Net::HTTP->new( %options )`
 
     The `Net::HTTP` constructor method takes the same options as
     `IO::Socket::INET`'s as well as these:
@@ -63,12 +63,12 @@ The following methods are provided (in addition to those of
     returns `undef` and $@ contains the reason.  After a successful
     connect, a `Net:HTTP` object is returned.
 
-- $s->host
+- `$s->host`
 
     Get/set the default value of the `Host` header to send.  The $host
     must not be set to an empty string (or `undef`) for HTTP/1.1.
 
-- $s->keep\_alive
+- `$s->keep_alive`
 
     Get/set the _keep-alive_ value.  If this value is TRUE then the
     request will be sent with headers indicating that the server should try
@@ -77,7 +77,7 @@ The following methods are provided (in addition to those of
     The actual headers set will depend on the value of the `http_version`
     and `peer_http_version` attributes.
 
-- $s->send\_te
+- `$s->send_te`
 
     Get/set the a value indicating if the request will be sent with a "TE"
     header to indicate the transfer encodings that the server can choose to
@@ -85,28 +85,28 @@ The following methods are provided (in addition to those of
     on availability of the following modules: `Compress::Raw::Zlib` for
     _deflate_, and `IO::Compress::Gunzip` for _gzip_.
 
-- $s->http\_version
+- `$s->http_version`
 
     Get/set the HTTP version number that this client should announce.
     This value can only be set to "1.0" or "1.1".  The default is "1.1".
 
-- $s->peer\_http\_version
+- `$s->peer_http_version`
 
     Get/set the protocol version number of our peer.  This value will
     initially be "1.0", but will be updated by a successful
     read\_response\_headers() method call.
 
-- $s->max\_line\_length
+- `$s->max_line_length`
 
     Get/set a limit on the length of response line and response header
     lines.  The default is 8192.  A value of 0 means no limit.
 
-- $s->max\_header\_length
+- `$s->max_header_length`
 
     Get/set a limit on the number of header lines that a response can
     have.  The default is 128.  A value of 0 means no limit.
 
-- $s->format\_request($method, $uri, %headers, \[$content\])
+- `$s->format_request($method, $uri, %headers, [$content])`
 
     Format a request message and return it as a string.  If the headers do
     not include a `Host` header, then a header is inserted with the value
@@ -117,16 +117,16 @@ The following methods are provided (in addition to those of
     If $content is given (and it is non-empty), then a `Content-Length`
     header is automatically added unless it was already present.
 
-- $s->write\_request($method, $uri, %headers, \[$content\])
+- `$s->write_request($method, $uri, %headers, [$content])`
 
     Format and send a request message.  Arguments are the same as for
     format\_request().  Returns true if successful.
 
-- $s->format\_chunk( $data )
+- `$s->format_chunk( $data )`
 
     Returns the string to be written for the given chunk of data.
 
-- $s->write\_chunk($data)
+- `$s->write_chunk($data)`
 
     Will write a new chunk of request entity body data.  This method
     should only be used if the `Transfer-Encoding` header with a value of
@@ -136,12 +136,12 @@ The following methods are provided (in addition to those of
 
     Returns true if successful.
 
-- $s->format\_chunk\_eof( %trailers )
+- `$s->format_chunk_eof( %trailers )`
 
     Returns the string to be written for signaling EOF when a
     `Transfer-Encoding` of `chunked` is used.
 
-- $s->write\_chunk\_eof( %trailers )
+- `$s->write_chunk_eof( %trailers )`
 
     Will write eof marker for chunked data and optional trailers.  Note
     that trailers should not really be used unless is was signaled
@@ -149,7 +149,7 @@ The following methods are provided (in addition to those of
 
     Returns true if successful.
 
-- ($code, $mess, %headers) = $s->read\_response\_headers( %opts )
+- `($code, $mess, %headers) = $s->read_response_headers( %opts )`
 
     Read response headers from server and return it.  The $code is the 3
     digit HTTP status code (see [HTTP::Status](https://metacpan.org/pod/HTTP%3A%3AStatus)) and $mess is the textual
@@ -185,7 +185,7 @@ The following methods are provided (in addition to those of
     then no exception will be raised and this method will always
     return a response code.
 
-- $n = $s->read\_entity\_body($buf, $size);
+- `$n = $s->read_entity_body($buf, $size);`
 
     Reads chunks of the entity body content.  Basically the same interface
     as for read() and sysread(), but the buffer offset argument is not
@@ -204,19 +204,19 @@ The following methods are provided (in addition to those of
     This method will raise exceptions (die) if the server does not speak
     proper HTTP.  This can only happen when reading chunked data.
 
-- %headers = $s->get\_trailers
+- `%headers = $s->get_trailers`
 
     After read\_entity\_body() has returned 0 to indicate end of the entity
     body, you might call this method to pick up any trailers.
 
-- $s->\_rbuf
+- `$s->_rbuf`
 
     Get/set the read buffer content.  The read\_response\_headers() and
     read\_entity\_body() methods use an internal buffer which they will look
     for data before they actually sysread more from the socket itself.  If
     they read too much, the remaining data will be left in this buffer.
 
-- $s->\_rbuf\_length
+- `$s->_rbuf_length`
 
     Returns the number of bytes in the read buffer.  This should always be
     the same as:
@@ -244,7 +244,7 @@ Gisle Aas <gisle@activestate.com>
 
 # COPYRIGHT AND LICENSE
 
-This software is copyright (c) 2001-2017 by Gisle Aas.
+This software is copyright (c) 2001 by Gisle Aas.
 
 This is free software; you can redistribute it and/or modify it under
 the same terms as the Perl 5 programming language system itself.
