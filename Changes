@@ -1,6 +1,10 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Format method bullet points as code in docs (GH#77) (Paul Cochrane)
+    - Ignore automatically generated directories (GH#76) (Paul Cochrane)
+    - Use copyright start year rather than range (issue raised by Paul
+      Cochrane)
 
 6.21      2021-03-18 21:56:42Z
     - Accept PeerAddr of 0. (GH#72) (trwyant)
