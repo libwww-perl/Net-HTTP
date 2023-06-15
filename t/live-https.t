@@ -59,7 +59,7 @@ SKIP: for my $pass ( 1 .. 2 ) {
     print "# $code $mess\n";
     for ( sort keys %h ) {
         print "# $_: $h{$_}\n";
-        if (/^connection$/i && $h{$_} =~ /^keep-alive$/) {
+        if (/^connection$/ && $h{$_} =~ /^keep-alive$/) {
             $connection_is_kept_alive = 1;
         }
     }
