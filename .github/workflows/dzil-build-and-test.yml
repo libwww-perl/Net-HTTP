@@ -4,21 +4,20 @@ name: dzil build and test
 on:
   push:
     branches:
-      - "*"
+      - "master"
   pull_request:
     branches:
       - "*"
-  schedule:
-    - cron: "15 4 * * 0" # Every Sunday morning
+  workflow_dispatch:
 
 jobs:
   build-job:
     name: Build distribution
     runs-on: ubuntu-20.04
     container:
-      image: perldocker/perl-tester:5.32
+      image: perldocker/perl-tester:5.36
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run Tests
         env:
           AUTHOR_TESTING: 1
@@ -26,19 +25,18 @@ jobs:
           EXTENDED_TESTING: 1
           RELEASE_TESTING: 1
         run: auto-build-and-test-dist
-      - uses: actions/upload-artifact@v2
+      - uses: actions/upload-artifact@v3
         with:
           name: build_dir
           path: build_dir
-        if: ${{ github.actor != 'nektos/act' }}
   coverage-job:
     needs: build-job
     runs-on: ubuntu-20.04
     container:
-      image: perldocker/perl-tester:5.32
+      image: perldocker/perl-tester:5.36
     steps:
-      - uses: actions/checkout@v2 # codecov wants to be inside a Git repository
-      - uses: actions/download-artifact@v2
+      - uses: actions/checkout@v3 # codecov wants to be inside a Git repository
+      - uses: actions/download-artifact@v3
         with:
           name: build_dir
           path: .
@@ -50,7 +48,7 @@ jobs:
     needs: build-job
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: build_dir
           path: .
@@ -58,15 +56,15 @@ jobs:
         run: docker pull kennethreitz/httpbin
       - name: Run httpbin
         run: docker run -d -p 31234:80 kennethreitz/httpbin
-      - name: docker pull perldocker/perl-tester:5.32
-        run: docker pull perldocker/perl-tester:5.32
+      - name: docker pull perldocker/perl-tester:5.36
+        run: docker pull perldocker/perl-tester:5.36
       - name: Run tests via Docker
         run: >
           docker run
           --network="host"
           --env AUTHOR_TESTING=1
           -v
-          $(pwd):/home/dist perldocker/perl-tester:5.32
+          $(pwd):/home/dist perldocker/perl-tester:5.36
           /bin/sh -c "cd /home/dist && cpan-install-dist-deps && prove -lv xt/rt-112313.t"
   ubuntu-test-job:
     needs: build-job
@@ -89,6 +87,8 @@ jobs:
           - "5.28"
           - "5.30"
           - "5.32"
+          - "5.34"
+          - "5.36"
     name: perl ${{ matrix.perl-version }} on ${{ matrix.os }}
     steps:
       - name: set up perl
@@ -170,7 +170,7 @@ jobs:
         with:
           perl-version: ${{ matrix.perl-version }}
           distribution: strawberry # this option only used on windows
-      - uses: actions/download-artifact@v2
+      - uses: actions/download-artifact@v3
         with:
           name: build_dir
           path: .
