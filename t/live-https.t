@@ -51,12 +51,15 @@ SKIP: for my $pass ( 1 .. 2 ) {
         Accept            => '*/*'
     );
 
-    my ( $code, $mess, %h ) = $s->read_response_headers;
+    my ( $code, $mess, %headers ) = $s->read_response_headers;
+
+    my %h = map { lc($_) => $headers{$_} } keys %headers;
+
     print "# ----------------------------\n";
     print "# $code $mess\n";
     for ( sort keys %h ) {
         print "# $_: $h{$_}\n";
-        if (/^Connection$/i && $h{$_} =~ /^keep-alive$/) {
+        if (/^connection$/i && $h{$_} =~ /^keep-alive$/) {
             $connection_is_kept_alive = 1;
         }
     }
@@ -72,7 +75,7 @@ SKIP: for my $pass ( 1 .. 2 ) {
     $buf =~ s/\r//g;
 
     ok( $code == 302 || $code == 200, 'success' );
-    like( $h{'Content-Type'}, qr{text/html} );
+    like( $h{'content-type'}, qr{text/html} );
     like( $buf, qr{</html>}i );
 }
 
