@@ -152,7 +152,7 @@ jobs:
     needs: ubuntu-test-job
     runs-on: "windows-latest"
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         os: [windows-latest]
         perl-version:
