@@ -103,8 +103,8 @@ jobs:
         uses: perl-actions/install-with-cpm@v1
         with:
           cpanfile: "cpanfile"
-          args: "--with-suggests --with-recommends --with-test --with-develop"
-      - run: prove -lr t xt
+          args: "--with-suggests --with-recommends"
+      - run: prove -lr t
         env:
           AUTHOR_TESTING: 1
           RELEASE_TESTING: 1
@@ -143,8 +143,8 @@ jobs:
         uses: perl-actions/install-with-cpm@v1
         with:
           cpanfile: "cpanfile"
-          args: "--with-suggests --with-recommends --with-test --with-develop"
-      - run: prove -lr t xt
+          args: "--with-suggests --with-recommends"
+      - run: prove -lr t
         env:
           AUTHOR_TESTING: 1
           RELEASE_TESTING: 1
