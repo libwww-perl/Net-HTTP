@@ -1,6 +1,6 @@
-Release history for {{$dist->name}}
+Release history for Net-HTTP
 
-{{$NEXT}}
+6.23      2023-06-16 11:46:01Z
     - Don't treat HTTP header names as case sensitive in test (GH#81) (Olaf
       Alders)
 
