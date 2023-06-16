@@ -1,6 +1,8 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Don't treat HTTP header names as case sensitive in test (GH#81) (Olaf
+      Alders)
 
 6.22      2022-01-21 20:41:21Z
     - Format method bullet points as code in docs (GH#77) (Paul Cochrane)
