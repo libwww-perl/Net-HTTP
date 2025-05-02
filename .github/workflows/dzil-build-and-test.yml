@@ -168,6 +168,8 @@ jobs:
         with:
           name: build_dir
           path: .
+      - name: install IO::Socket::SSL > 2.024   # Windows tests fail with 2.024, so we are getting the ...
+        run: cpm install -g IO::Socket::SSL@2.089  # ... latest version available at the time of writing
       - name: install deps using cpm
         uses: perl-actions/install-with-cpm@v1
         with:
