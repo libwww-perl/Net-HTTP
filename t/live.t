@@ -1,20 +1,26 @@
+my $host;
+BEGIN { $host = 'example.com' }
+#BEGIN { $host = 'www.neverssl.com' }
+
 BEGIN {
     if ( $ENV{NO_NETWORK_TESTING} ) {
-        print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
-        exit;
+	print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
+	exit;
     }
-    eval {
-        require IO::Socket::INET;
-        my $s = IO::Socket::INET->new(
-            PeerHost => "www.neverssl.com:80",
-            Timeout  => 5,
-        );
-        die "Can't connect: $@" unless $s;
-    };
-    if ($@) {
-        print "1..0 # SKIP Can't connect to www.neverssl.com\n";
-        print $@;
-        exit;
+    if ( !$^C ) { # avoid running the test connection with "perl -c"
+	eval {
+	    require IO::Socket::INET;
+	    my $s = IO::Socket::INET->new(
+		PeerHost => "$host:80",
+		Timeout  => 5,
+	    );
+	    die "Can't connect: $@" unless $s;
+	};
+	if ($@) {
+	    print "1..0 # SKIP Can't connect to $host\n";
+	    print $@;
+	    exit;
+	}
     }
 }
 
@@ -26,7 +32,7 @@ plan tests => 6;
 use Net::HTTP;
 
 my $s = Net::HTTP->new(
-    Host            => "www.neverssl.com",
+    Host            => $host,
     KeepAlive       => 1,
     Timeout         => 15,
     PeerHTTPVersion => "1.1",
