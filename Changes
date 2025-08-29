@@ -1,4 +1,6 @@
-Release history for Net-HTTP
+Release history for {{$dist->name}}
+
+{{$NEXT}}
 
 6.24      2025-08-29 11:21:58Z
     - Fix #84: Replace neverssl.com with example.com in live tests (GH#86)
