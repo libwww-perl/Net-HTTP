@@ -1,6 +1,11 @@
 Release history for {{$dist->name}}
 
 {{$NEXT}}
+    - Decode a "Transfer-Encoding: gzip" response body incrementally instead
+      of buffering the entire compressed body and decompressing it in one
+      pass. Each read now returns the just-decoded bytes, so a caller's read
+      cap applies on every read and peak memory tracks the read size rather
+      than the response size. (Olaf Alders)
 
 6.24      2025-08-29 11:21:58Z
     - Fix #84: Replace neverssl.com with example.com in live tests (GH#86)

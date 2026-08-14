@@ -476,18 +476,11 @@ sub read_entity_body {
 		    die "Can't make inflator: $status" unless $i;
 		    $_ = sub { my $out; $i->inflate($_[0], \$out); $out }
 		}
-		elsif ($_ eq "gzip" && gunzip_ok()) {
-		    #require IO::Uncompress::Gunzip;
-		    my @buf;
-		    $_ = sub {
-			push(@buf, $_[0]);
-			return "" unless $_[1];
-			my $input = join("", @buf);
-			my $output;
-			IO::Uncompress::Gunzip::gunzip(\$input, \$output, Transparent => 0)
-			    or die "Can't gunzip content: $IO::Uncompress::Gunzip::GunzipError";
-			return \$output;
-		    };
+		elsif ($_ eq "gzip" && inflate_ok()) {
+		    #require Compress::Raw::Zlib;
+		    my ($i, $status) = Compress::Raw::Zlib::Inflate->new(WindowBits => Compress::Raw::Zlib::WANT_GZIP());
+		    die "Can't make inflator: $status" unless $i;
+		    $_ = sub { my $out; $i->inflate($_[0], \$out); $out }
 		}
 		elsif ($_ eq "identity") {
 		    $_ = sub { $_[0] };
