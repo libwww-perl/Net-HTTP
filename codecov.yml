@@ -1,0 +1,14 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        # Tolerate small drops (e.g. formatting/refactor churn) while still
+        # failing on a genuine coverage regression.
+        threshold: 1%
+    patch:
+      default:
+        # Patch coverage is noisy for reformatting/refactor PRs and understated
+        # here because much of the suite is network-gated; report it but don't
+        # block merges on it.
+        informational: true
