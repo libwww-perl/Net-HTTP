@@ -23,5 +23,4 @@ use Test::More;
     is_deeply \@Net::HTTPS::ISA, [qw[Foo Net::HTTP::Methods]];
 }
 
-
 done_testing;

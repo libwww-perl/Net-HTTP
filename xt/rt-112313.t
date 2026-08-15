@@ -4,23 +4,23 @@
 # $ docker run -p 31234:80 kennethreitz/httpbin
 
 BEGIN {
-  if ( $ENV{NO_NETWORK_TESTING} ) {
-    print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
-    exit;
-  }
-  eval {
+    if ( $ENV{NO_NETWORK_TESTING} ) {
+        print "1..0 # SKIP Live tests disabled due to NO_NETWORK_TESTING\n";
+        exit;
+    }
+    eval {
         require IO::Socket::INET;
         my $s = IO::Socket::INET->new(
             PeerHost => "localhost:31234",
             Timeout  => 5,
         );
         die "Can't connect: $@" unless $s;
-  };
-  if ($@) {
+    };
+    if ($@) {
         print "1..0 # SKIP Can't connect to localhost\n";
         print $@;
         exit;
-  }
+    }
 }
 
 use strict;
@@ -40,9 +40,7 @@ use Net::HTTP;
 # So, we check that the response growth is only one byte after each iteration and also test multiple
 # times across the 1024, 2048 and 3072 boundaries...
 
-
-sub try
-{
+sub try {
     my $n = shift;
 
     # Need a new socket every time because we're testing with Keep-Alive...
@@ -52,32 +50,35 @@ sub try
         PeerHTTPVersion => "1.1",
     ) or die "$@";
 
-    $s->write_request(GET => '/headers',
+    $s->write_request(
+        GET          => '/headers',
         'User-Agent' => "Net::HTTP - $0",
-        'X-Foo'      => ('x' x $n),
+        'X-Foo'      => ( 'x' x $n ),
     );
 
     # Wait until all data is probably available on the socket...
     sleep 1;
 
-    my ($code, $mess, @headers) = $s->read_response_headers();
+    my ( $code, $mess, @headers ) = $s->read_response_headers();
 
     # XXX remove X-Processed-Time header
-    for my $i (0..$#headers) {
-        if ($headers[$i] eq 'X-Processed-Time') {
+    for my $i ( 0 .. $#headers ) {
+        if ( $headers[$i] eq 'X-Processed-Time' ) {
             splice @headers, $i, 2;
             last;
         }
     }
 
     my $body = '';
-    while ($s->read_entity_body(my $buf, 1024))
-    {
+    while ( $s->read_entity_body( my $buf, 1024 ) ) {
         $body .= $buf;
     }
 
     # Compute what is probably the total response length...
-    my $total_len = length(join "\r\n", 'HTTP/1.1', "$code $mess", @headers, '', $body) - 1;
+    my $total_len = length(
+        join "\r\n", 'HTTP/1.1', "$code $mess", @headers, '',
+        $body
+    ) - 1;
 
     # diag("$n - $code $mess => $total_len");
     # diag(join "\r\n", 'HTTP/1.1', "$code $mess", @headers, '', $body);
@@ -88,21 +89,20 @@ sub try
     return $total_len;
 }
 
-my $timeout = 15;
+my $timeout     = 15;
 my $wiggle_room = 3;
 
 local $SIG{ALRM} = sub { die 'timeout' };
 
 my $base_len = try(1);
-ok($base_len < 1024, "base response length is less than 1024: $base_len");
+ok( $base_len < 1024, "base response length is less than 1024: $base_len" );
 
-for my $kb (1024, 2048, 3072)
-{
+for my $kb ( 1024, 2048, 3072 ) {
     my $last;
 
     # Calculate range that will take us across the 1024 boundary...
-    for my $n (($kb - $base_len - $wiggle_room) .. ($kb - $base_len + $wiggle_room))
-    {
+    for my $n ( ( $kb - $base_len - $wiggle_room )
+        .. ( $kb - $base_len + $wiggle_room ) ) {
         my $len = -1;
 
         eval {
@@ -110,11 +110,11 @@ for my $kb (1024, 2048, 3072)
             $len = try($n);
         };
 
-        ok(!$@, "ok for n $n -> response length $len")
+        ok( !$@, "ok for n $n -> response length $len" )
             or diag("error: $@");
 
         # Verify that response length only increased by one since the whole test rests on that assumption...
-        is($len - $last, 1, 'response length increased by 1') if $last;
+        is( $len - $last, 1, 'response length increased by 1' ) if $last;
 
         $last = $len;
     }

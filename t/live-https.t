@@ -42,7 +42,7 @@ my $s = Net::HTTPS->new(
 my $connection_is_kept_alive;
 SKIP: for my $pass ( 1 .. 2 ) {
     skip "No keep-alive connection, cannot do another request", 3
-	if $pass == 2 && !$connection_is_kept_alive;
+        if $pass == 2 && !$connection_is_kept_alive;
 
     $s->write_request(
         GET               => "/",
@@ -59,7 +59,7 @@ SKIP: for my $pass ( 1 .. 2 ) {
     print "# $code $mess\n";
     for ( sort keys %h ) {
         print "# $_: $h{$_}\n";
-        if (/^connection$/ && $h{$_} =~ /^keep-alive$/) {
+        if ( /^connection$/ && $h{$_} =~ /^keep-alive$/ ) {
             $connection_is_kept_alive = 1;
         }
     }
@@ -76,6 +76,6 @@ SKIP: for my $pass ( 1 .. 2 ) {
 
     ok( $code == 302 || $code == 200, 'success' );
     like( $h{'content-type'}, qr{text/html} );
-    like( $buf, qr{</html>}i );
+    like( $buf,               qr{</html>}i );
 }
 

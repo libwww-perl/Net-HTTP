@@ -60,5 +60,5 @@ for ( 1 .. 2 ) {
 
     ok( $code == 302 || $code == 200, 'success' );
     like( $h{'Content-Type'}, qr{text/html} );
-    like( $buf, qr{</html>}i );
+    like( $buf,               qr{</html>}i );
 }
