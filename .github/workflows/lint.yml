@@ -16,7 +16,7 @@ jobs:
   precious:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0   # full history so `precious lint --git-diff-from <base>` can resolve the merge base
       - uses: shogo82148/actions-setup-perl@v1
